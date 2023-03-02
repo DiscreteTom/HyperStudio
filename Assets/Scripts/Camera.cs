@@ -14,14 +14,15 @@ public class Camera : MonoBehaviour {
 
   // Update is called once per frame
   void Update() {
-    float pitch, yaw, roll; // range: [-1, 1]
+    float x, y, z, w; // range: [-1, 1]
     unsafe {
       long addr = GetArSensor();
-      pitch = *(float*)(addr + 44);
-      yaw = *(float*)(addr + 48);
-      roll = *(float*)(addr + 52);
+      x = *(float*)(addr + 44);
+      y = *(float*)(addr + 48);
+      z = *(float*)(addr + 52);
+      w = *(float*)(addr + 56);
     }
 
-    this.transform.eulerAngles = new Vector3(pitch, yaw, roll) * 180;
+    this.transform.rotation = new Quaternion(x, y, z, w);
   }
 }
