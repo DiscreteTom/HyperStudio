@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class App : MonoBehaviour {
+public class Camera : MonoBehaviour {
   [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern void XRSDK_Init();
   [DllImport(@"Assets/XR/XRSDK.dll")]
