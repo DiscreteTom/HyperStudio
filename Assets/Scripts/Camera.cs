@@ -7,12 +7,10 @@ public class Camera : MonoBehaviour {
   [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern long GetArSensor();
 
-  // Start is called before the first frame update
   void Start() {
     XRSDK_Init();
   }
 
-  // Update is called once per frame
   void Update() {
     float x, y, z, w; // range: [-1, 1]
     unsafe {
