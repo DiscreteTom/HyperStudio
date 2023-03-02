@@ -5,10 +5,13 @@ public class Camera : MonoBehaviour {
   [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern void XRSDK_Init();
   [DllImport(@"Assets/XR/XRSDK.dll")]
+  public static extern void Reset();
+  [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern long GetArSensor();
 
   void Start() {
     XRSDK_Init();
+    Reset();
   }
 
   void Update() {
