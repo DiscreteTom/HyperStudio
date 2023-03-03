@@ -27,6 +27,9 @@ public class MonitorControl : MonoBehaviour {
   }
 
   void OnMouseOver() {
+    // blink
+    this.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.gray, Mathf.PingPong(Time.time * 2, 1));
+
     if (Input.GetMouseButtonDown(0)) {
       this.dragging = true;
     }
@@ -88,5 +91,10 @@ public class MonitorControl : MonoBehaviour {
         this.transform.Rotate(Vector3.forward, -90 * Time.deltaTime);
       }
     }
+  }
+
+  void OnMouseExit() {
+    // cancel blink
+    this.GetComponent<Renderer>().material.color = Color.white;
   }
 }
