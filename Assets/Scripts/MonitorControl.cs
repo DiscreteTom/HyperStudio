@@ -4,6 +4,7 @@ using UnityEngine;
 public class MonitorControl : CBC {
   bool dragging;
   bool recordingViewZone;
+  float recordingStartTime;
   uDesktopDuplication.Texture texture;
   MeshRenderer mr;
   EventBus eb;
@@ -57,7 +58,13 @@ public class MonitorControl : CBC {
         if (this.viewZoneMax.z < angle.z) this.viewZoneMax.z = angle.z;
         if (Input.GetKeyUp(KeyCode.V)) {
           this.recordingViewZone = false;
-          this.eb.Invoke("tip", "Stop Recording View Zone");
+          if (Time.time - this.recordingStartTime > 0.3) {
+            this.eb.Invoke("tip", "Stop Recording View Zone");
+          } else {
+            // prevent mistakenly recording
+            this.enableViewZone = false;
+            this.eb.Invoke("tip", "Release Ctrl+V Too Fast");
+          }
         }
       } else {
         // handle view zone
@@ -157,12 +164,15 @@ public class MonitorControl : CBC {
       this.viewZoneMin = Camera.main.transform.rotation.eulerAngles;
       this.viewZoneMax = Camera.main.transform.rotation.eulerAngles;
       eb.Invoke("tip", "Start Record View Zone");
+      this.recordingStartTime = Time.time;
     }
 
     // ctrl + shift + V to disable view zone
     if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.V)) {
+      if (this.enableViewZone)
+        this.eb.Invoke("tip", "Disable View Zone: " + this.texture.monitorId);
+
       this.enableViewZone = false;
-      this.eb.Invoke("tip", "Disable View Zone: " + this.texture.monitorId);
     }
   }
 
