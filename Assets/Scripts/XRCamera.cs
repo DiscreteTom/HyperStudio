@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 
-public class Camera : MonoBehaviour {
+public class XRCamera : MonoBehaviour {
 #if UNITY_EDITOR
   [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern void XRSDK_Init();
