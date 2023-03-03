@@ -56,11 +56,11 @@ public class MonitorControl : MonoBehaviour {
 
     // ctrl + '+'/'-' to bend the monitor, ctrl + '0' to toggle bend
     if (Input.GetKey(KeyCode.LeftControl)) {
-      if (Input.GetKeyDown(KeyCode.Equals)) {
-        this.texture.radius += 2;
+      if (Input.GetKey(KeyCode.Equals)) {
+        this.texture.radius += 8 * Time.deltaTime;
       }
-      if (Input.GetKeyDown(KeyCode.Minus)) {
-        this.texture.radius -= 2;
+      if (Input.GetKey(KeyCode.Minus)) {
+        this.texture.radius -= 8 * Time.deltaTime;
       }
       if (Input.GetKeyDown(KeyCode.Alpha0)) {
         this.texture.bend = !this.texture.bend;
