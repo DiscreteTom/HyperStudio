@@ -21,6 +21,7 @@ public class MonitorConfig {
 public class Config {
   public bool ShowOnAllDesktops;
   public bool AutoLookAtCamera;
+  public float TipMessageTimeout;
   public MonitorConfig[] Monitors;
 
   public static Config Load() {
