@@ -19,11 +19,12 @@ HyperStudio.exe -monitor N
 
 - Drag screen to move.
 - Scroll to scale the screen.
-- Scroll while pressing `ctrl` to push away / pull close a screen.
+- Scroll while pressing `Ctrl` to push away / pull close a screen.
 - Press `ESC` to remove a screen.
 - Press `Ctrl + '+'/'-'` to bend the screen.
 - Press `Ctrl + 0` to toggle bend.
-- Press `Ctrl + j/k/l/u/i/o` to rotate screen.
+- Press `Ctrl + J/K/L/U/I/O` to rotate screen.
+- Press `Ctrl + R` to reset viewpoint direction.
 - Press `Alt + F4` to exit.
 
 ## FAQ
