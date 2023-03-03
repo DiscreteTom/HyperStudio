@@ -150,6 +150,11 @@ public class MonitorControl : MonoBehaviour {
       this.viewZoneMin = Camera.main.transform.rotation.eulerAngles;
       this.viewZoneMax = Camera.main.transform.rotation.eulerAngles;
     }
+
+    // ctrl + shift + V to disable view zone
+    if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.V)) {
+      this.enableViewZone = false;
+    }
   }
 
   void OnMouseExit() {

@@ -29,7 +29,8 @@ HyperStudio.exe -monitor N
 - Press `Ctrl + R` to reset viewpoint direction.
 - Press `Ctrl + Shift + R` to reload the scene.
 - Press `Ctrl + S` to save screen's location, rotation and scale to config.
-- Hold `Ctrl + V` to record view zone.
+- Hold `Ctrl + V` to record view zone for the screen.
+- Press `Ctrl + Shift + V` to disable view zone for the screen.
 - Hold `Ctrl + A` to show all screens(not include removed).
 - Press `Alt + F4` to exit.
 
