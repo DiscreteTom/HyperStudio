@@ -1,10 +1,12 @@
+using DT.General;
 using UnityEngine;
 
-public class MonitorControl : MonoBehaviour {
+public class MonitorControl : CBC {
   bool dragging;
   bool recordingViewZone;
   uDesktopDuplication.Texture texture;
   MeshRenderer mr;
+  EventBus eb;
   public bool enableViewZone;
   public Vector3 viewZoneMin;
   public Vector3 viewZoneMax;
@@ -14,6 +16,7 @@ public class MonitorControl : MonoBehaviour {
     this.recordingViewZone = false;
     this.texture = this.GetComponent<uDesktopDuplication.Texture>();
     this.mr = this.GetComponent<MeshRenderer>();
+    this.eb = this.Get<EventBus>();
 
     if (Config.instance.Monitors.Length > this.texture.monitorId) {
       this.enableViewZone = Config.instance.Monitors[this.texture.monitorId].EnableViewZone;
@@ -22,57 +25,60 @@ public class MonitorControl : MonoBehaviour {
     } else {
       this.enableViewZone = false;
     }
-  }
 
-  void Update() {
-    // move the object when the mouse button is held down
-    if (this.dragging) {
-      Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
-      Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-      // keep the distance from the camera the same
-      var distance = (this.transform.position - Camera.main.transform.position).magnitude;
-      this.transform.position = (objPosition - Camera.main.transform.position).normalized * distance + Camera.main.transform.position;
-      // keep the object facing the camera
-      if (Config.instance.AutoLookAtCamera) {
-        this.transform.LookAt(2 * this.transform.position - Camera.main.transform.position);
+    this.OnUpdate.AddListener(() => {
+      // move the object when the mouse button is held down
+      if (this.dragging) {
+        Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
+        Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        // keep the distance from the camera the same
+        var distance = (this.transform.position - Camera.main.transform.position).magnitude;
+        this.transform.position = (objPosition - Camera.main.transform.position).normalized * distance + Camera.main.transform.position;
+        // keep the object facing the camera
+        if (Config.instance.AutoLookAtCamera) {
+          this.transform.LookAt(2 * this.transform.position - Camera.main.transform.position);
+        }
       }
-    }
 
-    // drag
-    if (Input.GetMouseButtonUp(0)) {
-      this.dragging = false;
-    }
+      // drag
+      if (Input.GetMouseButtonUp(0)) {
+        this.dragging = false;
+      }
 
-    // view zone
-    if (this.recordingViewZone) {
-      // recording view zone
-      var angle = Camera.main.transform.rotation.eulerAngles;
-      if (this.viewZoneMin.x > angle.x) this.viewZoneMin.x = angle.x;
-      if (this.viewZoneMin.y > angle.y) this.viewZoneMin.y = angle.y;
-      if (this.viewZoneMin.z > angle.z) this.viewZoneMin.z = angle.z;
-      if (this.viewZoneMax.x < angle.x) this.viewZoneMax.x = angle.x;
-      if (this.viewZoneMax.y < angle.y) this.viewZoneMax.y = angle.y;
-      if (this.viewZoneMax.z < angle.z) this.viewZoneMax.z = angle.z;
-      if (Input.GetKeyUp(KeyCode.V)) this.recordingViewZone = false;
-    } else {
-      // handle view zone
-      if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.A)) {
-        // press Ctrl + A to show all monitor
-        if (!this.mr.enabled) this.mr.enabled = true;
+      // view zone
+      if (this.recordingViewZone) {
+        // recording view zone
+        var angle = Camera.main.transform.rotation.eulerAngles;
+        if (this.viewZoneMin.x > angle.x) this.viewZoneMin.x = angle.x;
+        if (this.viewZoneMin.y > angle.y) this.viewZoneMin.y = angle.y;
+        if (this.viewZoneMin.z > angle.z) this.viewZoneMin.z = angle.z;
+        if (this.viewZoneMax.x < angle.x) this.viewZoneMax.x = angle.x;
+        if (this.viewZoneMax.y < angle.y) this.viewZoneMax.y = angle.y;
+        if (this.viewZoneMax.z < angle.z) this.viewZoneMax.z = angle.z;
+        if (Input.GetKeyUp(KeyCode.V)) {
+          this.recordingViewZone = false;
+          this.eb.Invoke("tip", "Stop Recording View Zone");
+        }
       } else {
-        // check rotation
-        if (this.enableViewZone) {
-          var rotation = Camera.main.transform.rotation.eulerAngles;
-          if (rotation.x > this.viewZoneMin.x && rotation.x < this.viewZoneMax.x && rotation.y > this.viewZoneMin.y && rotation.y < this.viewZoneMax.y && rotation.z > this.viewZoneMin.z && rotation.z < this.viewZoneMax.z) {
-            // show
-            if (!this.mr.enabled) this.mr.enabled = true;
-          } else {
-            // hide
-            if (this.mr.enabled) this.mr.enabled = false;
+        // handle view zone
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.A)) {
+          // press Ctrl + A to show all monitor
+          if (!this.mr.enabled) this.mr.enabled = true;
+        } else {
+          // check rotation
+          if (this.enableViewZone) {
+            var rotation = Camera.main.transform.rotation.eulerAngles;
+            if (rotation.x > this.viewZoneMin.x && rotation.x < this.viewZoneMax.x && rotation.y > this.viewZoneMin.y && rotation.y < this.viewZoneMax.y && rotation.z > this.viewZoneMin.z && rotation.z < this.viewZoneMax.z) {
+              // show
+              if (!this.mr.enabled) this.mr.enabled = true;
+            } else {
+              // hide
+              if (this.mr.enabled) this.mr.enabled = false;
+            }
           }
         }
       }
-    }
+    });
   }
 
   void OnMouseOver() {
@@ -106,6 +112,7 @@ public class MonitorControl : MonoBehaviour {
     // press esc to delete the object
     if (Input.GetKeyDown(KeyCode.Escape)) {
       Destroy(this.gameObject);
+      this.eb.Invoke("tip", "Remove Screen: " + this.texture.monitorId);
     }
 
     // ctrl + '+'/'-' to bend the monitor, ctrl + '0' to toggle bend
@@ -149,11 +156,13 @@ public class MonitorControl : MonoBehaviour {
       this.enableViewZone = true;
       this.viewZoneMin = Camera.main.transform.rotation.eulerAngles;
       this.viewZoneMax = Camera.main.transform.rotation.eulerAngles;
+      eb.Invoke("tip", "Start Record View Zone");
     }
 
     // ctrl + shift + V to disable view zone
     if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.V)) {
       this.enableViewZone = false;
+      this.eb.Invoke("tip", "Disable View Zone: " + this.texture.monitorId);
     }
   }
 

@@ -16,7 +16,7 @@ public class App : Entry {
 #endif
 
     // inject context
-    this.Add<EventBus>();
+    var eb = this.Add<EventBus>();
 
     this.OnUpdate.AddListener(() => {
       // Ctrl + S to save config
@@ -41,6 +41,7 @@ public class App : Entry {
         }));
 
         Config.Save();
+        eb.Invoke("tip", "Saved");
       }
 
       // Ctrl + Shift + R to reload scene
@@ -51,6 +52,7 @@ public class App : Entry {
       // Ctrl + F to toggle LookAt
       if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F)) {
         Config.instance.AutoLookAtCamera = !Config.instance.AutoLookAtCamera;
+        eb.Invoke("tip", "AutoLookAtCamera: " + Config.instance.AutoLookAtCamera);
       }
     });
   }
