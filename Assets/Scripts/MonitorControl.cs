@@ -11,12 +11,12 @@ public class MonitorControl : MonoBehaviour {
     // move the object when the mouse button is held down
     if (this.dragging) {
       Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
-      Vector3 objPosition = UnityEngine.Camera.main.ScreenToWorldPoint(mousePosition);
+      Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
       // keep the distance from the camera the same
-      var distance = (this.transform.position - UnityEngine.Camera.main.transform.position).magnitude;
-      this.transform.position = (objPosition - UnityEngine.Camera.main.transform.position).normalized * distance + UnityEngine.Camera.main.transform.position;
+      var distance = (this.transform.position - Camera.main.transform.position).magnitude;
+      this.transform.position = (objPosition - Camera.main.transform.position).normalized * distance + Camera.main.transform.position;
       // keep the object facing the camera
-      this.transform.LookAt(2 * this.transform.position - UnityEngine.Camera.main.transform.position);
+      this.transform.LookAt(2 * this.transform.position - Camera.main.transform.position);
     }
 
     if (Input.GetMouseButtonUp(0)) {
@@ -44,7 +44,7 @@ public class MonitorControl : MonoBehaviour {
     } else {
       // push away or pull towards the camera when the mouse wheel is scrolled and ctrl is held down
       if (scroll != 0) {
-        var direction = (this.transform.position - UnityEngine.Camera.main.transform.position).normalized;
+        var direction = (this.transform.position - Camera.main.transform.position).normalized;
         this.transform.position = this.transform.position + direction * scroll;
       }
     }
