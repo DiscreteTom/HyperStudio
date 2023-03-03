@@ -1,3 +1,4 @@
+using uDesktopDuplication;
 using UnityEngine;
 
 public class MonitorManager : MonoBehaviour {
@@ -5,10 +6,10 @@ public class MonitorManager : MonoBehaviour {
 
   void Start() {
     // center of primary monitor
-    var primaryCenter = this.GetCenter(uDesktopDuplication.Manager.primary);
+    var primaryCenter = this.GetCenter(Manager.primary);
 
-    for (var i = 0; i < uDesktopDuplication.Manager.monitors.Count; i++) {
-      var monitor = uDesktopDuplication.Manager.monitors[i];
+    for (var i = 0; i < Manager.monitors.Count; i++) {
+      var monitor = Manager.monitors[i];
       var obj = Instantiate(this.monitorPrefab, this.transform);
       var texture = obj.GetComponent<uDesktopDuplication.Texture>();
       texture.monitorId = i;
@@ -20,7 +21,7 @@ public class MonitorManager : MonoBehaviour {
     }
   }
 
-  Vector3 GetCenter(uDesktopDuplication.Monitor monitor) {
+  Vector3 GetCenter(Monitor monitor) {
     return new Vector3(monitor.left + (monitor.right - monitor.left) / 2, -(monitor.top + (monitor.bottom - monitor.top) / 2), 0);
   }
 }
