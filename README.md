@@ -32,6 +32,7 @@ HyperStudio.exe -monitor N
 - Hold `Ctrl + V` to record view zone for the screen.
 - Press `Ctrl + Shift + V` to disable view zone for the screen.
 - Hold `Ctrl + A` to show all screens(not include removed).
+- Press `Ctrl + F` to toggle `AutoLookAtCamera`.
 - Press `Alt + F4` to exit.
 
 ## FAQ

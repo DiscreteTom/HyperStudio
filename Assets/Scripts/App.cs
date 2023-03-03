@@ -44,5 +44,10 @@ public class App : MonoBehaviour {
     if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R)) {
       SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    // Ctrl + F to toggle LookAt
+    if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.F)) {
+      Config.instance.AutoLookAtCamera = !Config.instance.AutoLookAtCamera;
+    }
   }
 }
