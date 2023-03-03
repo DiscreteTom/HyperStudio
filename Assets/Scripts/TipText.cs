@@ -24,7 +24,7 @@ public class TipText : CBC {
     });
 
     this.OnUpdate.AddListener(() => {
-      if (Time.time > timeout.Peek()) {
+      if (timeout.Count > 0 && Time.time > timeout.Peek()) {
         timeout.Pop();
         msgs.RemoveAt(0);
         UpdateText();
