@@ -1,6 +1,7 @@
 using System;
 using uDesktopDuplication;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class App : MonoBehaviour {
   void Start() {
@@ -32,6 +33,11 @@ public class App : MonoBehaviour {
       }));
 
       Config.Save();
+    }
+
+    // Ctrl + Shift + R to reload scene
+    if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.R)) {
+      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
   }
 }
