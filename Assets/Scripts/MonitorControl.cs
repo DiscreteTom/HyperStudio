@@ -18,7 +18,9 @@ public class MonitorControl : MonoBehaviour {
       var distance = (this.transform.position - Camera.main.transform.position).magnitude;
       this.transform.position = (objPosition - Camera.main.transform.position).normalized * distance + Camera.main.transform.position;
       // keep the object facing the camera
-      this.transform.LookAt(2 * this.transform.position - Camera.main.transform.position);
+      if (Config.instance.AutoLookAtCamera) {
+        this.transform.LookAt(2 * this.transform.position - Camera.main.transform.position);
+      }
     }
 
     if (Input.GetMouseButtonUp(0)) {

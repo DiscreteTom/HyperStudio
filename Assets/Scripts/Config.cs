@@ -12,6 +12,7 @@ public class MonitorConfig {
 [System.Serializable]
 public class Config {
   public bool ShowOnAllDesktops;
+  public bool AutoLookAtCamera;
   public MonitorConfig[] Monitors;
 
   public static Config Load() {
