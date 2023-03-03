@@ -19,6 +19,7 @@ public class App : MonoBehaviour {
     // Ctrl + S to save config
     if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S)) {
       // get monitor info
+      var old = Config.instance.Monitors;
       Config.instance.Monitors = new MonitorConfig[Manager.monitors.Count];
       for (var i = 0; i < Manager.monitors.Count; i++) {
         Config.instance.Monitors[i] = new MonitorConfig();
@@ -30,6 +31,10 @@ public class App : MonoBehaviour {
         config.Position = texture.transform.position;
         config.Rotation = texture.transform.rotation.eulerAngles;
         config.Scale = texture.transform.localScale;
+        var control = texture.GetComponent<MonitorControl>();
+        config.EnableViewZone = control.enableViewZone;
+        config.ViewZone.Min = control.viewZoneMin;
+        config.ViewZone.Max = control.viewZoneMax;
       }));
 
       Config.Save();
