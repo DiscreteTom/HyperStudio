@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class MonitorControl : MonoBehaviour {
   bool dragging;
+  uDesktopDuplication.Texture texture;
 
   void Start() {
     this.dragging = false;
+    this.texture = this.GetComponent<uDesktopDuplication.Texture>();
   }
 
   void Update() {
@@ -20,14 +22,12 @@ public class MonitorControl : MonoBehaviour {
     }
 
     if (Input.GetMouseButtonUp(0)) {
-      Debug.Log("Not dragging");
       this.dragging = false;
     }
   }
 
   void OnMouseOver() {
     if (Input.GetMouseButtonDown(0)) {
-      Debug.Log("Dragging");
       this.dragging = true;
     }
 
@@ -52,6 +52,19 @@ public class MonitorControl : MonoBehaviour {
     // press esc to delete the object
     if (Input.GetKeyDown(KeyCode.Escape)) {
       Destroy(this.gameObject);
+    }
+
+    // ctrl + '+'/'-' to bend the monitor, ctrl + '0' to toggle bend
+    if (Input.GetKey(KeyCode.LeftControl)) {
+      if (Input.GetKeyDown(KeyCode.Equals)) {
+        this.texture.radius += 2;
+      }
+      if (Input.GetKeyDown(KeyCode.Minus)) {
+        this.texture.radius -= 2;
+      }
+      if (Input.GetKeyDown(KeyCode.Alpha0)) {
+        this.texture.bend = !this.texture.bend;
+      }
     }
   }
 }
