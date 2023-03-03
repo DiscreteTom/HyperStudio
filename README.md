@@ -4,8 +4,9 @@
 
 To run this app in a specific monitor:
 
-```
-HyperStudio.exe -monitor <N>
+```bash
+# https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html
+HyperStudio.exe -monitor N
 ```
 
 > **Note**: N starts from 1 instead of 0.
