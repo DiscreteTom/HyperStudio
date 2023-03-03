@@ -2,12 +2,21 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Camera : MonoBehaviour {
+#if UNITY_EDITOR
   [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern void XRSDK_Init();
   [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern void Reset();
   [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern long GetArSensor();
+#else
+  [DllImport(@"HyperStudio_Data/Plugins/x86_64/XRSDK.dll")]
+  public static extern void XRSDK_Init();
+  [DllImport(@"HyperStudio_Data/Plugins/x86_64/XRSDK.dll")]
+  public static extern void Reset();
+  [DllImport(@"HyperStudio_Data/Plugins/x86_64/XRSDK.dll")]
+  public static extern long GetArSensor();
+#endif
 
   void Start() {
     XRSDK_Init();
