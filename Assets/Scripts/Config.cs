@@ -2,9 +2,15 @@ using System.IO;
 using UnityEngine;
 
 [System.Serializable]
+public class Range {
+  public float min;
+  public float max;
+}
+
+[System.Serializable]
 public class ViewZone {
-  public Vector3 Min;
-  public Vector3 Max;
+  public Range pitch; // x
+  public Range yaw; // y
 }
 
 [System.Serializable]

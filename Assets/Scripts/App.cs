@@ -36,8 +36,8 @@ public class App : Entry {
           config.Scale = texture.transform.localScale;
           var control = texture.GetComponent<MonitorControl>();
           config.EnableViewZone = control.enableViewZone;
-          config.ViewZone.Min = control.viewZoneMin;
-          config.ViewZone.Max = control.viewZoneMax;
+          config.ViewZone.pitch = control.pitch;
+          config.ViewZone.pitch = control.yaw;
         }));
 
         Config.Save();

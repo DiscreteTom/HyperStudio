@@ -9,8 +9,8 @@ public class MonitorControl : CBC {
   MeshRenderer mr;
   EventBus eb;
   public bool enableViewZone;
-  public Vector3 viewZoneMin;
-  public Vector3 viewZoneMax;
+  public Range pitch;
+  public Range yaw;
 
   void Start() {
     this.dragging = false;
@@ -21,8 +21,8 @@ public class MonitorControl : CBC {
 
     if (Config.instance.Monitors.Length > this.texture.monitorId) {
       this.enableViewZone = Config.instance.Monitors[this.texture.monitorId].EnableViewZone;
-      this.viewZoneMax = Config.instance.Monitors[this.texture.monitorId].ViewZone.Max;
-      this.viewZoneMin = Config.instance.Monitors[this.texture.monitorId].ViewZone.Min;
+      this.pitch = Config.instance.Monitors[this.texture.monitorId].ViewZone.pitch;
+      this.yaw = Config.instance.Monitors[this.texture.monitorId].ViewZone.yaw;
     } else {
       this.enableViewZone = false;
     }
@@ -49,13 +49,12 @@ public class MonitorControl : CBC {
       // view zone
       if (this.recordingViewZone) {
         // recording view zone
-        var angle = Camera.main.transform.rotation.eulerAngles;
-        if (this.viewZoneMin.x > angle.x) this.viewZoneMin.x = angle.x;
-        if (this.viewZoneMin.y > angle.y) this.viewZoneMin.y = angle.y;
-        if (this.viewZoneMin.z > angle.z) this.viewZoneMin.z = angle.z;
-        if (this.viewZoneMax.x < angle.x) this.viewZoneMax.x = angle.x;
-        if (this.viewZoneMax.y < angle.y) this.viewZoneMax.y = angle.y;
-        if (this.viewZoneMax.z < angle.z) this.viewZoneMax.z = angle.z;
+        var newPitch = this.GetPitch(Camera.main.transform.rotation);
+        var newYaw = this.GetYaw(Camera.main.transform.rotation);
+        if (newPitch < this.pitch.min) this.pitch.min = newPitch;
+        if (newPitch > this.pitch.max) this.pitch.max = newPitch;
+        if (newYaw < this.yaw.min) this.yaw.min = newYaw;
+        if (newYaw > this.yaw.max) this.yaw.max = newYaw;
         if (Input.GetKeyUp(KeyCode.V)) {
           this.recordingViewZone = false;
           if (Time.time - this.recordingStartTime > 0.3) {
@@ -74,8 +73,9 @@ public class MonitorControl : CBC {
         } else {
           // check rotation
           if (this.enableViewZone) {
-            var rotation = Camera.main.transform.rotation.eulerAngles;
-            if (rotation.x > this.viewZoneMin.x && rotation.x < this.viewZoneMax.x && rotation.y > this.viewZoneMin.y && rotation.y < this.viewZoneMax.y && rotation.z > this.viewZoneMin.z && rotation.z < this.viewZoneMax.z) {
+            var newPitch = this.GetPitch(Camera.main.transform.rotation);
+            var newYaw = this.GetYaw(Camera.main.transform.rotation);
+            if (newPitch > this.pitch.min && newPitch < this.pitch.max && newYaw > this.yaw.min && newYaw < this.yaw.max) {
               // show
               if (!this.mr.enabled) this.mr.enabled = true;
             } else {
@@ -161,8 +161,10 @@ public class MonitorControl : CBC {
     if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.V)) {
       this.recordingViewZone = true;
       this.enableViewZone = true;
-      this.viewZoneMin = Camera.main.transform.rotation.eulerAngles;
-      this.viewZoneMax = Camera.main.transform.rotation.eulerAngles;
+      this.pitch.min = this.GetPitch(Camera.main.transform.rotation);
+      this.pitch.max = this.GetPitch(Camera.main.transform.rotation);
+      this.yaw.min = this.GetYaw(Camera.main.transform.rotation);
+      this.yaw.max = this.GetYaw(Camera.main.transform.rotation);
       eb.Invoke("tip", "Start Record View Zone");
       this.recordingStartTime = Time.time;
     }
@@ -179,5 +181,13 @@ public class MonitorControl : CBC {
   void OnMouseExit() {
     // cancel blink
     this.GetComponent<Renderer>().material.color = Color.white;
+  }
+
+  // https://answers.unity.com/questions/416169/finding-pitchrollyaw-from-quaternions.html
+  float GetPitch(Quaternion q) {
+    return Mathf.Atan2(2 * q.x * q.w - 2 * q.y * q.z, 1 - 2 * q.x * q.x - 2 * q.z * q.z);
+  }
+  float GetYaw(Quaternion q) {
+    return Mathf.Asin(2 * q.x * q.y + 2 * q.z * q.w);
   }
 }
