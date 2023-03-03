@@ -1,3 +1,5 @@
+using System;
+using uDesktopDuplication;
 using UnityEngine;
 
 public class App : MonoBehaviour {
@@ -10,5 +12,26 @@ public class App : MonoBehaviour {
       Win32.SetWindowLongA(handle, -20, 0x80);
     }
 #endif
+  }
+
+  void Update() {
+    // Ctrl + S to save config
+    if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S)) {
+      // get monitor info
+      Config.instance.Monitors = new MonitorConfig[Manager.monitors.Count];
+      for (var i = 0; i < Manager.monitors.Count; i++) {
+        Config.instance.Monitors[i] = new MonitorConfig();
+        Config.instance.Monitors[i].Show = false;
+      }
+      Array.ForEach(GameObject.Find("MonitorManager").GetComponentsInChildren<uDesktopDuplication.Texture>(), ((texture) => {
+        var config = Config.instance.Monitors[texture.monitorId];
+        config.Show = true;
+        config.Position = texture.transform.position;
+        config.Rotation = texture.transform.rotation.eulerAngles;
+        config.Scale = texture.transform.localScale;
+      }));
+
+      Config.Save();
+    }
   }
 }

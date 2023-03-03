@@ -15,6 +15,8 @@ HyperStudio.exe -monitor N
 
 > **Note**: N starts from 1 instead of 0.
 
+> **Note**: Make sure you have `config.json` in the exe folder.
+
 ## How to Use
 
 - Drag screen to move.
@@ -25,6 +27,7 @@ HyperStudio.exe -monitor N
 - Press `Ctrl + 0` to toggle bend.
 - Press `Ctrl + J/K/L/U/I/O` to rotate screen.
 - Press `Ctrl + R` to reset viewpoint direction.
+- Press `Ctrl + S` to save screen's location, rotation and scale.
 - Press `Alt + F4` to exit.
 
 ## FAQ
