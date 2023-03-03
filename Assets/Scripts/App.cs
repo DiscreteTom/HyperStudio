@@ -54,6 +54,15 @@ public class App : Entry {
         Config.instance.AutoLookAtCamera = !Config.instance.AutoLookAtCamera;
         eb.Invoke("tip", "AutoLookAtCamera: " + Config.instance.AutoLookAtCamera);
       }
+
+      // press esc to exit
+      if (Input.GetKeyDown(KeyCode.Escape)) {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+      UnityEngine.Application.Quit();
+#endif
+      }
     });
   }
 }

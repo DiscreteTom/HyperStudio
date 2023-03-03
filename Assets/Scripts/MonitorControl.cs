@@ -109,8 +109,8 @@ public class MonitorControl : CBC {
       }
     }
 
-    // press esc to delete the object
-    if (Input.GetKeyDown(KeyCode.Escape)) {
+    // press backspace to delete the object
+    if (Input.GetKeyDown(KeyCode.Backspace)) {
       Destroy(this.gameObject);
       this.eb.Invoke("tip", "Remove Screen: " + this.texture.monitorId);
     }

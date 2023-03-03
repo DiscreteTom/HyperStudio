@@ -10,7 +10,7 @@ public class HelpText : CBC {
 Drag screen using mouse to move the screen.
 Scroll to scale the screen.
 Scroll while pressing `Ctrl` to push away / pull close a screen.
-Press `ESC` to remove a screen.
+Press `Backspace` to remove a screen.
 Hold `Ctrl + '+'/'-'` to bend the screen.
 Press `Ctrl + 0` to toggle bend.
 Hold `Ctrl + J/K/L/U/I/O` to rotate screen.
@@ -21,7 +21,7 @@ Hold `Ctrl + V` to record view zone for the screen.
 Press `Ctrl + Shift + V` to disable view zone for the screen.
 Hold `Ctrl + A` to show all screens(not include removed).
 Press `Ctrl + F` to toggle `AutoLookAtCamera`.
-Press `Alt + F4` to exit.";
+Press `ESC` to exit.";
 
     this.OnUpdate.AddListener(() => {
       if (Input.GetKey(KeyCode.Tab)) text.enabled = true;
