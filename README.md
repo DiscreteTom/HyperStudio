@@ -23,14 +23,14 @@ HyperStudio.exe -monitor N
 - Scroll to scale the screen.
 - Scroll while pressing `Ctrl` to push away / pull close a screen.
 - Press `ESC` to remove a screen.
-- Press `Ctrl + '+'/'-'` to bend the screen.
+- Hold `Ctrl + '+'/'-'` to bend the screen.
 - Press `Ctrl + 0` to toggle bend.
-- Press `Ctrl + J/K/L/U/I/O` to rotate screen.
+- Hold `Ctrl + J/K/L/U/I/O` to rotate screen.
 - Press `Ctrl + R` to reset viewpoint direction.
-- Press `Ctrl + S` to save screen's location, rotation and scale to config.
 - Press `Ctrl + Shift + R` to reload the scene.
-- Press `Ctrl + V` to record view zone.
-- Press `Ctrl + A` to show all screens(not include removed).
+- Press `Ctrl + S` to save screen's location, rotation and scale to config.
+- Hold `Ctrl + V` to record view zone.
+- Hold `Ctrl + A` to show all screens(not include removed).
 - Press `Alt + F4` to exit.
 
 ## FAQ
