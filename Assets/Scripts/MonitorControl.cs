@@ -66,5 +66,27 @@ public class MonitorControl : MonoBehaviour {
         this.texture.bend = !this.texture.bend;
       }
     }
+
+    // ctrl + j/k/l/u/i/o to rotate monitor
+    if (Input.GetKey(KeyCode.LeftControl)) {
+      if (Input.GetKey(KeyCode.J)) {
+        this.transform.Rotate(Vector3.up, 90 * Time.deltaTime);
+      }
+      if (Input.GetKey(KeyCode.L)) {
+        this.transform.Rotate(Vector3.up, -90 * Time.deltaTime);
+      }
+      if (Input.GetKey(KeyCode.I)) {
+        this.transform.Rotate(Vector3.right, 90 * Time.deltaTime);
+      }
+      if (Input.GetKey(KeyCode.K)) {
+        this.transform.Rotate(Vector3.right, -90 * Time.deltaTime);
+      }
+      if (Input.GetKey(KeyCode.U)) {
+        this.transform.Rotate(Vector3.forward, 90 * Time.deltaTime);
+      }
+      if (Input.GetKey(KeyCode.O)) {
+        this.transform.Rotate(Vector3.forward, -90 * Time.deltaTime);
+      }
+    }
   }
 }
