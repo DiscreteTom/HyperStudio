@@ -49,3 +49,4 @@ HyperStudio.exe -monitor N
   - https://github.com/hecomi/uDesktopDuplication/issues/30
 - Virtual monitor?
   - https://www.amyuni.com/forum/viewtopic.php?t=3030
+  - https://github.com/pavlobu/deskreen/discussions/86
