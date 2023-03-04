@@ -187,7 +187,7 @@ public class MonitorControl : CBC {
 
   (float x, float y) GetCameraAngle() {
     var yAngle = Mathf.Asin(Camera.main.transform.forward.y / Camera.main.transform.forward.magnitude);
-    var xAngle = Mathf.Acos(Camera.main.transform.forward.x / (Camera.main.transform.forward.magnitude * Mathf.Cos(yAngle)));
+    var xAngle = Mathf.Acos(Camera.main.transform.forward.x / (Camera.main.transform.forward.magnitude * Mathf.Cos(yAngle))) * Mathf.Sign(Camera.main.transform.forward.z);
     return (xAngle, yAngle);
   }
 }
