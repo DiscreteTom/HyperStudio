@@ -4,6 +4,12 @@
 
 Cast your PC screens to Leiniao AR glasses.
 
+## Features
+
+- Auto apply your monitor layout from your system settings.
+- Optionally show on all virtual desktops.
+- You can set a view zone for each screen, so the screen will only be visible when your head is in a specific angle range.
+
 ## Run
 
 To run this app in a specific monitor:
