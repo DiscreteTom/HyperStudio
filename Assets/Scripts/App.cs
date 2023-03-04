@@ -34,6 +34,8 @@ public class App : Entry {
           config.Position = texture.transform.position;
           config.Rotation = texture.transform.rotation.eulerAngles;
           config.Scale = texture.transform.localScale;
+          config.Bend = texture.bend;
+          config.BendRadius = texture.radius;
           var control = texture.GetComponent<MonitorControl>();
           config.EnableViewZone = control.enableViewZone;
           config.ViewZone = new ViewZone();

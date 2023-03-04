@@ -21,6 +21,8 @@ public class MonitorConfig {
   public Vector3 Scale;
   public bool EnableViewZone;
   public ViewZone ViewZone; // show monitor only when camera's rotation in this range
+  public bool Bend;
+  public float BendRadius;
 }
 
 [System.Serializable]
