@@ -1,6 +1,6 @@
 # HyperStudio
 
-> **Note**: Only Windows is supported.
+> **Note**: This is only available on Windows.
 
 Cast your PC screens to Leiniao AR glasses.
 
