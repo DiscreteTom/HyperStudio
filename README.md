@@ -4,6 +4,8 @@
 
 Cast your PC screens to Leiniao AR glasses.
 
+## [Download](https://github.com/DiscreteTom/HyperStudio/releases)
+
 ## Features
 
 - Auto apply your monitor layout from your system settings.
@@ -11,6 +13,10 @@ Cast your PC screens to Leiniao AR glasses.
 - You can set a view zone for each screen, so the screen will only be visible when your head is in a specific angle range.
 
 ## Run
+
+Just double click `HyperStudio.exe` to run this app. You can press `Enter` to toggle full screen mode.
+
+> **Note**: Make sure you have `config.json` in the exe folder.
 
 To run this app in a specific monitor:
 
@@ -20,8 +26,6 @@ HyperStudio.exe -monitor N
 ```
 
 > **Note**: N starts from 1 instead of 0.
-
-> **Note**: Make sure you have `config.json` in the exe folder.
 
 ## How to Use
 
