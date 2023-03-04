@@ -49,14 +49,15 @@ public class MonitorControl : CBC {
       // view zone
       if (this.recordingViewZone) {
         // recording view zone
-        var newPitch = this.GetPitch(Camera.main.transform.rotation);
-        var newYaw = this.GetYaw(Camera.main.transform.rotation);
+        var (newPitch, newYaw) = this.GetCameraAngle();
         if (newPitch < this.pitch.min) this.pitch.min = newPitch;
         if (newPitch > this.pitch.max) this.pitch.max = newPitch;
         if (newYaw < this.yaw.min) this.yaw.min = newYaw;
         if (newYaw > this.yaw.max) this.yaw.max = newYaw;
+        eb.Invoke("viewZoneMesh.update", this.pitch, this.yaw);
         if (Input.GetKeyUp(KeyCode.V)) {
           this.recordingViewZone = false;
+          eb.Invoke("viewZoneMesh.disable");
           if (Time.time - this.recordingStartTime > 0.3) {
             this.eb.Invoke("tip", "Stop Recording View Zone");
           } else {
@@ -73,8 +74,7 @@ public class MonitorControl : CBC {
         } else {
           // check rotation
           if (this.enableViewZone) {
-            var newPitch = this.GetPitch(Camera.main.transform.rotation);
-            var newYaw = this.GetYaw(Camera.main.transform.rotation);
+            var (newPitch, newYaw) = this.GetCameraAngle();
             if (newPitch > this.pitch.min && newPitch < this.pitch.max && newYaw > this.yaw.min && newYaw < this.yaw.max) {
               // show
               if (!this.mr.enabled) this.mr.enabled = true;
@@ -161,12 +161,14 @@ public class MonitorControl : CBC {
     if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.V)) {
       this.recordingViewZone = true;
       this.enableViewZone = true;
-      this.pitch.min = this.GetPitch(Camera.main.transform.rotation);
-      this.pitch.max = this.GetPitch(Camera.main.transform.rotation);
-      this.yaw.min = this.GetYaw(Camera.main.transform.rotation);
-      this.yaw.max = this.GetYaw(Camera.main.transform.rotation);
+      var (newPitch, newYaw) = this.GetCameraAngle();
+      this.pitch.min = newPitch;
+      this.pitch.max = newPitch;
+      this.yaw.min = newYaw;
+      this.yaw.max = newYaw;
       eb.Invoke("tip", "Start Record View Zone");
       this.recordingStartTime = Time.time;
+      eb.Invoke("viewZoneMesh.enable");
     }
 
     // ctrl + shift + V to disable view zone
@@ -183,11 +185,9 @@ public class MonitorControl : CBC {
     this.GetComponent<Renderer>().material.color = Color.white;
   }
 
-  // https://answers.unity.com/questions/416169/finding-pitchrollyaw-from-quaternions.html
-  float GetPitch(Quaternion q) {
-    return Mathf.Atan2(2 * q.x * q.w - 2 * q.y * q.z, 1 - 2 * q.x * q.x - 2 * q.z * q.z);
-  }
-  float GetYaw(Quaternion q) {
-    return Mathf.Asin(2 * q.x * q.y + 2 * q.z * q.w);
+  (float x, float y) GetCameraAngle() {
+    var yAngle = Mathf.Asin(Camera.main.transform.forward.y / Camera.main.transform.forward.magnitude);
+    var xAngle = Mathf.Acos(Camera.main.transform.forward.x / (Camera.main.transform.forward.magnitude * Mathf.Cos(yAngle)));
+    return (xAngle, yAngle);
   }
 }
