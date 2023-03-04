@@ -15,6 +15,8 @@ public class MonitorControl : CBC {
   void Start() {
     this.dragging = false;
     this.recordingViewZone = false;
+    this.pitch = new Range();
+    this.yaw = new Range();
     this.texture = this.GetComponent<uDesktopDuplication.Texture>();
     this.mr = this.GetComponent<MeshRenderer>();
     this.eb = this.Get<EventBus>();
