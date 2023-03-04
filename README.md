@@ -26,6 +26,7 @@ HyperStudio.exe -monitor N
 ## How to Use
 
 - Hold `Tab` to show this help.
+- Press `Enter` to toggle full screen.
 - Drag screen using mouse to move the screen.
 - Scroll to scale the screen.
 - Scroll while pressing `Ctrl` to push away / pull close a screen.

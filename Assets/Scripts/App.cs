@@ -66,6 +66,11 @@ public class App : Entry {
       UnityEngine.Application.Quit();
 #endif
       }
+
+      // press enter to toggle full screen
+      if (Input.GetKeyDown(KeyCode.Return)) {
+        Screen.fullScreen = !Screen.fullScreen;
+      }
     });
   }
 }

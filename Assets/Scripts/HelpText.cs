@@ -7,6 +7,7 @@ public class HelpText : CBC {
   void Start() {
     var text = this.GetComponent<TMP_Text>();
     text.text = @"Hold `Tab` to show this help.
+Press `Enter` to toggle full screen.
 Drag screen using mouse to move the screen.
 Scroll to scale the screen.
 Scroll while pressing `Ctrl` to push away / pull close a screen.
