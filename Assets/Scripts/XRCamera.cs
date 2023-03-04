@@ -5,6 +5,7 @@ public class XRCamera : CBC {
   void Start() {
     XRSDK.XRSDK_Init();
     XRSDK.Reset();
+    XRSDK.SetPanelLuminance(Config.instance.PanelLuminance);
 
     var eb = this.Get<EventBus>();
 

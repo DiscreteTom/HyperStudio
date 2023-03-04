@@ -28,6 +28,7 @@ public class Config {
   public bool ShowOnAllDesktops;
   public bool AutoLookAtCamera;
   public float TipMessageTimeout;
+  public int PanelLuminance;
   public MonitorConfig[] Monitors;
 
   public static Config Load() {

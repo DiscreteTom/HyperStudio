@@ -8,6 +8,8 @@ public static class XRSDK {
   public static extern void Reset();
   [DllImport(@"Assets/XR/XRSDK.dll")]
   public static extern long GetArSensor();
+  [DllImport(@"Assets/XR/XRSDK.dll")]
+  public static extern void SetPanelLuminance(int value);
 #else
   [DllImport(@"HyperStudio_Data/Plugins/x86_64/XRSDK.dll")]
   public static extern void XRSDK_Init();
@@ -15,5 +17,7 @@ public static class XRSDK {
   public static extern void Reset();
   [DllImport(@"HyperStudio_Data/Plugins/x86_64/XRSDK.dll")]
   public static extern long GetArSensor();
+  [DllImport(@"HyperStudio_Data/Plugins/x86_64/XRSDK.dll")]
+  public static extern void SetPanelLuminance(int value);
 #endif
 }
