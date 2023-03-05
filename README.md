@@ -1,5 +1,9 @@
 # HyperStudio
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/DiscreteTom/HyperStudio?style=flat-square)
+![Platform support](https://img.shields.io/badge/platform-windows-blue?style=flat-square)
+![Built with Unity3D](https://img.shields.io/badge/Built%20with-Unity3D-lightgrey?style=flat-square)
+
 > **Note**: This is only available on Windows.
 
 Cast your PC screens to Leiniao AR glasses.
@@ -66,3 +70,12 @@ HyperStudio.exe -monitor N
 - Virtual monitor?
   - https://www.amyuni.com/forum/viewtopic.php?t=3030
   - https://github.com/pavlobu/deskreen/discussions/86
+
+## [CHANGELOG](https://github.com/DiscreteTom/HyperStudio/blob/main/CHANGELOG.md)
+
+## Credit
+
+Thanks for these cool libs:
+
+- [uDesktopDuplication](https://github.com/hecomi/uDesktopDuplication)
+- [UnityRawInput](https://github.com/Elringus/UnityRawInput)
