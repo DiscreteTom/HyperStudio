@@ -12,13 +12,24 @@ Cast your PC screens to Leiniao AR glasses.
 - Optionally show on all virtual desktops.
 - You can set a view zone for each screen, so the screen will only be visible when your head is in a specific angle range.
 
-## Run
+## Launch the App
+
+### The Simplest Way
 
 Just double click `HyperStudio.exe` to run this app. You can press `Enter` to toggle full screen mode.
 
 > **Note**: Make sure you have `config.json` in the exe folder.
 
-To run this app in a specific monitor:
+### Set Resolution
+
+```bash
+# https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html
+HyperStudio.exe -screen-width 2400 -screen-height 1600
+```
+
+> **Note**: The desired resolution can exceed the AR monitor's resolution(1920x1080), and you will get a better display effect.
+
+### Run in a Specific Monitor
 
 ```bash
 # https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html
