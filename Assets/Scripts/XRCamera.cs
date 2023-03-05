@@ -1,5 +1,6 @@
 using DT.General;
 using UnityEngine;
+using UnityRawInput;
 
 public class XRCamera : CBC {
   void Start() {
@@ -8,6 +9,20 @@ public class XRCamera : CBC {
     XRSDK.SetPanelLuminance(Config.instance.PanelLuminance);
 
     var eb = this.Get<EventBus>();
+    RawInput.WorkInBackground = true;
+    RawInput.Start();
+    if (Config.instance.ResetViewHotKey.Enabled) {
+      RawInput.OnKeyDown += (key) => {
+        if ((uint)key == Config.instance.ResetViewHotKey.Key) {
+          if ((Config.instance.ResetViewHotKey.Modifier & 0x01) != 0 && !RawInput.IsKeyDown(RawKey.LeftButtonAlt)) return;
+          if ((Config.instance.ResetViewHotKey.Modifier & 0x02) != 0 && !RawInput.IsKeyDown(RawKey.LeftControl)) return;
+          if ((Config.instance.ResetViewHotKey.Modifier & 0x04) != 0 && !RawInput.IsKeyDown(RawKey.LeftShift)) return;
+          if ((Config.instance.ResetViewHotKey.Modifier & 0x08) != 0 && !RawInput.IsKeyDown(RawKey.LeftWindows)) return;
+          XRSDK.Reset();
+          eb.Invoke("tip", "Reset View");
+        }
+      };
+    }
 
     this.OnUpdate.AddListener(() => {
       // update the camera position by reading the sensor data
@@ -27,5 +42,9 @@ public class XRCamera : CBC {
         eb.Invoke("tip", "Reset View");
       }
     });
+  }
+
+  void OnApplicationQuit() {
+    RawInput.Stop();
   }
 }
