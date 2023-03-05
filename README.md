@@ -65,7 +65,8 @@ HyperStudio.exe -monitor N
 ## FAQ
 
 - Sorry this display is unsupported?
-  - Disable your discrete GPU driver.
+  - Go to System Setting > Display > Graphics, find/add this app, and set options to Power Saving to use the on-chip GPU.
+  - Or, you can directly disable your discrete GPU.
   - https://github.com/hecomi/uDesktopDuplication/issues/30
 - Virtual monitor?
   - https://www.amyuni.com/forum/viewtopic.php?t=3030
