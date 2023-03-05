@@ -34,11 +34,32 @@ public class Config {
   public MonitorConfig[] Monitors;
 
   public static Config Load() {
-    return JsonUtility.FromJson<Config>(File.ReadAllText("config.json"));
+    Config config;
+    try {
+      config = JsonUtility.FromJson<Config>(File.ReadAllText("config.json"));
+    } catch {
+      config = null;
+    }
+    var changed = false;
+    if (config == null) {
+      config = new Config();
+      config.ShowOnAllDesktops = true;
+      config.AutoLookAtCamera = true;
+      config.TipMessageTimeout = 5;
+      config.PanelLuminance = 0;
+      config.Monitors = new MonitorConfig[0];
+      changed = true;
+    }
+    if (changed) Save(config);
+    return config;
   }
 
   public static void Save() {
-    File.WriteAllText("config.json", JsonUtility.ToJson(Config.instance, true));
+    Save(Config.instance);
+  }
+
+  public static void Save(Config config) {
+    File.WriteAllText("config.json", JsonUtility.ToJson(config, true));
   }
 
   // singleton
