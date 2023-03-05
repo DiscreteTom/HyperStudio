@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class App : Entry {
   void Awake() {
+    // show on all desktops
 #if !UNITY_EDITOR
     if (Config.instance.ShowOnAllDesktops) {
       var handle = Win32.GetActiveWindow();
