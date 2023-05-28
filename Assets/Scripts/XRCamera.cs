@@ -1,4 +1,4 @@
-using DT.General;
+using DT.UniStart;
 using UnityEngine;
 using UnityRawInput;
 
@@ -24,7 +24,7 @@ public class XRCamera : CBC {
       };
     }
 
-    this.OnUpdate.AddListener(() => {
+    this.onUpdate.AddListener(() => {
       // update the camera position by reading the sensor data
       float x, y, z, w; // range: [-1, 1]
       unsafe {

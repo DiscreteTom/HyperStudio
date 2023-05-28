@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## v2.0.0
+
+- Change version naming rule.
+- Adopt UniStart framework.
+
 ## v0.1.1
 
 - Auto generate `config.json`.

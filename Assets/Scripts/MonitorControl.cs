@@ -1,4 +1,4 @@
-using DT.General;
+using DT.UniStart;
 using UnityEngine;
 
 public class MonitorControl : CBC {
@@ -29,7 +29,7 @@ public class MonitorControl : CBC {
       this.enableViewZone = false;
     }
 
-    this.OnUpdate.AddListener(() => {
+    this.onUpdate.AddListener(() => {
       // move the object when the mouse button is held down
       if (this.dragging) {
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);

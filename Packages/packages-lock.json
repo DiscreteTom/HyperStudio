@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.discretetom.unistart": {
+      "version": "https://github.com/DiscreteTom/UniStart.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "5db309a0c5a17a90361c998bb9041928c75d2414"
+    },
     "com.unity.collab-proxy": {
       "version": "1.17.7",
       "depth": 0,

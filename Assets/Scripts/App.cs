@@ -1,5 +1,5 @@
 using System;
-using DT.General;
+using DT.UniStart;
 using uDesktopDuplication;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -19,7 +19,7 @@ public class App : Entry {
     // inject context
     var eb = this.Add<EventBus>();
 
-    this.OnUpdate.AddListener(() => {
+    this.onUpdate.AddListener(() => {
       // Ctrl + S to save config
       if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.S)) {
         // get monitor info

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using DT.General;
+using DT.UniStart;
 using TMPro;
 using UnityEngine;
 
@@ -24,7 +24,7 @@ Hold `Ctrl + A` to show all screens(not include removed).
 Press `Ctrl + F` to toggle `AutoLookAtCamera`.
 Press `ESC` to exit.";
 
-    this.OnUpdate.AddListener(() => {
+    this.onUpdate.AddListener(() => {
       if (Input.GetKey(KeyCode.Tab)) text.enabled = true;
       else text.enabled = false;
     });

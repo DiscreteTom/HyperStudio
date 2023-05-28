@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using DT.General;
+using DT.UniStart;
 using TMPro;
 using UnityEngine;
 
@@ -23,7 +23,7 @@ public class TipText : CBC {
       UpdateText();
     });
 
-    this.OnUpdate.AddListener(() => {
+    this.onUpdate.AddListener(() => {
       if (timeout.Count > 0 && Time.time > timeout.Peek()) {
         timeout.Pop();
         msgs.RemoveAt(0);
