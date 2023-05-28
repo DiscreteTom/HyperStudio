@@ -17,7 +17,11 @@ public class App : Entry {
 #endif
 
     // inject context
+#if UNITY_EDITOR
+    var eb = this.Add<EventBus>(new DebugEventBus());
+#else
     var eb = this.Add<EventBus>();
+#endif
 
     this.onUpdate.AddListener(() => {
       // Ctrl + S to save config
