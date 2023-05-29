@@ -1,12 +1,10 @@
 using DT.UniStart;
+using HyperDesktopDuplication;
 using UnityEngine;
 
 public class MonitorControl : CBC {
   void Start() {
     var dragging = false;
-    var pitch = new Range();
-    var yaw = new Range();
-    var texture = this.GetComponent<uDesktopDuplication.Texture>();
     var mr = this.GetComponent<MeshRenderer>();
     var eb = this.Get<IEventBus>();
 
@@ -36,7 +34,7 @@ public class MonitorControl : CBC {
       }
     });
 
-    this.onMouseOver.AddListener(() => {
+    this.onMouseOver.AddListener(async () => {
       // blink
       this.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.gray, Mathf.PingPong(Time.time * 2, 1));
 
@@ -66,22 +64,25 @@ public class MonitorControl : CBC {
 
       // press backspace to delete the object
       if (Input.GetKeyDown(KeyCode.Backspace)) {
+        var monitor = this.GetComponent<HDD_Monitor>();
+        var id = monitor.id;
+        await monitor.DestroyMonitor();
         Destroy(this.gameObject);
-        eb.Invoke("tip", "Remove Screen: " + texture.monitorId);
+        eb.Invoke("tip", "Remove Screen: " + id);
       }
 
       // ctrl + '+'/'-' to bend the monitor, ctrl + '0' to toggle bend
-      if (Input.GetKey(KeyCode.LeftControl)) {
-        if (Input.GetKey(KeyCode.Equals)) {
-          texture.radius += 8 * Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.Minus)) {
-          texture.radius -= 8 * Time.deltaTime;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0)) {
-          texture.bend = !texture.bend;
-        }
-      }
+      // if (Input.GetKey(KeyCode.LeftControl)) {
+      //   if (Input.GetKey(KeyCode.Equals)) {
+      //     texture.radius += 8 * Time.deltaTime;
+      //   }
+      //   if (Input.GetKey(KeyCode.Minus)) {
+      //     texture.radius -= 8 * Time.deltaTime;
+      //   }
+      //   if (Input.GetKeyDown(KeyCode.Alpha0)) {
+      //     texture.bend = !texture.bend;
+      //   }
+      // }
 
       // ctrl + j/k/l/u/i/o to rotate monitor
       if (Input.GetKey(KeyCode.LeftControl)) {

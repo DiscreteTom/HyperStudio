@@ -1,44 +1,52 @@
 using DT.UniStart;
-using uDesktopDuplication;
+using HyperDesktopDuplication;
 using UnityEngine;
 
 public class MonitorManager : CBC {
-  [SerializeField] GameObject monitorPrefab;
+  [SerializeField] float scale = 100;
 
   void Start() {
-    var getCenter = Fn((Monitor monitor) => new Vector3(monitor.left + (monitor.right - monitor.left) / 2, -(monitor.top + (monitor.bottom - monitor.top) / 2), 0));
+    var eb = this.Get<IEventBus>();
 
-    // center of primary monitor
-    var primaryCenter = getCenter(Manager.primary);
+    this.Watch(eb, "hdd.manager.initialized", () => {
+      var manager = this.Get<HDD_Manager>();
 
-    for (var i = 0; i < Manager.monitors.Count; i++) {
-      // skip hidden monitors
-      // TODO: identify monitors by serial number or something, don't rely on the order
-      if (Config.instance.Monitors.Length > i) {
-        var config = Config.instance.Monitors[i];
-        if (!config.Show) continue;
+      var primaryCenter = Vector3.zero;
+      for (int i = 0; i < manager.Monitors.Count; ++i) {
+        var info = manager.Monitors[i];
+        if (info.IsPrimary) {
+          primaryCenter = new Vector3((info.Right - info.Left) / 2 + info.Left, (info.Top - info.Bottom) / 2 + info.Bottom, 0) / scale;
+          break;
+        }
       }
 
-      var monitor = Manager.monitors[i];
-      var obj = Instantiate(this.monitorPrefab, this.transform);
-      var texture = obj.GetComponent<uDesktopDuplication.Texture>();
-      texture.monitorId = i;
+      for (var i = 0; i < manager.Monitors.Count; i++) {
+        // skip hidden monitors
+        // TODO: identify monitors by serial number or something, don't rely on the order
+        if (Config.instance.Monitors.Length > i) {
+          var config = Config.instance.Monitors[i];
+          if (!config.Show) continue;
+        }
 
-      if (Config.instance.Monitors.Length > i) {
-        // use config
-        var config = Config.instance.Monitors[i];
-        obj.transform.position = config.Position;
-        obj.transform.rotation = Quaternion.Euler(config.Rotation);
-        obj.transform.localScale = config.Scale;
-        texture.bend = config.Bend;
-        texture.radius = config.BendRadius;
-      } else {
-        obj.transform.localScale = new Vector3(monitor.width, monitor.height, 1000) / 1000;
-        // set screen position just like in the system settings
-        obj.transform.position = (getCenter(monitor) - primaryCenter) / 100;
-        // look at camera
-        obj.transform.LookAt(2 * obj.transform.position - Camera.main.transform.position);
+        var info = manager.Monitors[i];
+        var obj = manager.CreateMonitor(i);
+
+        if (Config.instance.Monitors.Length > i) {
+          // apply config
+          var config = Config.instance.Monitors[i];
+          obj.transform.position = config.Position;
+          obj.transform.rotation = Quaternion.Euler(config.Rotation);
+          obj.transform.localScale = config.Scale;
+          // texture.bend = config.Bend;
+          // texture.radius = config.BendRadius;
+        } else {
+          obj.transform.localScale = new Vector3(1 / scale, 1 / scale, 1);
+          // place the monitor according to the system settings
+          obj.transform.localPosition = new Vector3((info.Right - info.Left) / 2 + info.Left, (info.Top - info.Bottom) / 2 + info.Bottom, 0) / scale - primaryCenter;
+          // look at camera
+          obj.transform.LookAt(2 * obj.transform.position - Camera.main.transform.position);
+        }
       }
-    }
+    });
   }
 }

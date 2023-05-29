@@ -3,7 +3,8 @@
 ## v2.0.0
 
 - Change version naming rule.
-- Adopt UniStart framework.
+- Apply UniStart framework.
+- Apply HyperDesktopDuplication.
 - Remove view zone.
 - Remove global hot key to reset view.
 
