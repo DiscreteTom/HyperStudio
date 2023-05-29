@@ -44,7 +44,7 @@ public class MonitorManager : CBC {
           // place the monitor according to the system settings
           obj.transform.localPosition = new Vector3((info.Right - info.Left) / 2 + info.Left, (info.Top - info.Bottom) / 2 + info.Bottom, 0) / scale - primaryCenter;
           // look at camera
-          obj.transform.LookAt(2 * obj.transform.position - Camera.main.transform.position);
+          // obj.transform.LookAt(2 * obj.transform.position - Camera.main.transform.position);
         }
       }
     });
