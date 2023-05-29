@@ -3,31 +3,20 @@ using UnityEngine;
 
 public class MonitorControl : CBC {
   bool dragging;
-  bool recordingViewZone;
   float recordingStartTime;
   uDesktopDuplication.Texture texture;
   MeshRenderer mr;
   EventBus eb;
-  public bool enableViewZone;
   public Range pitch;
   public Range yaw;
 
   void Start() {
     this.dragging = false;
-    this.recordingViewZone = false;
     this.pitch = new Range();
     this.yaw = new Range();
     this.texture = this.GetComponent<uDesktopDuplication.Texture>();
     this.mr = this.GetComponent<MeshRenderer>();
     this.eb = this.Get<EventBus>();
-
-    if (Config.instance.Monitors.Length > this.texture.monitorId) {
-      this.enableViewZone = Config.instance.Monitors[this.texture.monitorId].EnableViewZone;
-      this.pitch = Config.instance.Monitors[this.texture.monitorId].ViewZone.pitch;
-      this.yaw = Config.instance.Monitors[this.texture.monitorId].ViewZone.yaw;
-    } else {
-      this.enableViewZone = false;
-    }
 
     var getCameraAngle = Fn(() => {
       var yAngle = Mathf.Asin(Camera.main.transform.forward.y / Camera.main.transform.forward.magnitude);
@@ -52,46 +41,6 @@ public class MonitorControl : CBC {
       // drag
       if (Input.GetMouseButtonUp(0)) {
         this.dragging = false;
-      }
-
-      // view zone
-      if (this.recordingViewZone) {
-        // recording view zone
-        var (newPitch, newYaw) = getCameraAngle();
-        if (newPitch < this.pitch.min) this.pitch.min = newPitch;
-        if (newPitch > this.pitch.max) this.pitch.max = newPitch;
-        if (newYaw < this.yaw.min) this.yaw.min = newYaw;
-        if (newYaw > this.yaw.max) this.yaw.max = newYaw;
-        eb.Invoke("viewZoneMesh.update", this.pitch, this.yaw);
-        if (Input.GetKeyUp(KeyCode.V)) {
-          this.recordingViewZone = false;
-          eb.Invoke("viewZoneMesh.disable");
-          if (Time.time - this.recordingStartTime > 0.3) {
-            this.eb.Invoke("tip", "Stop Recording View Zone");
-          } else {
-            // prevent mistakenly recording
-            this.enableViewZone = false;
-            this.eb.Invoke("tip", "Release Ctrl+V Too Fast");
-          }
-        }
-      } else {
-        // handle view zone
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.A)) {
-          // press Ctrl + A to show all monitor
-          if (!this.mr.enabled) this.mr.enabled = true;
-        } else {
-          // check rotation
-          if (this.enableViewZone) {
-            var (newPitch, newYaw) = getCameraAngle();
-            if (newPitch > this.pitch.min && newPitch < this.pitch.max && newYaw > this.yaw.min && newYaw < this.yaw.max) {
-              // show
-              if (!this.mr.enabled) this.mr.enabled = true;
-            } else {
-              // hide
-              if (this.mr.enabled) this.mr.enabled = false;
-            }
-          }
-        }
       }
     });
 
@@ -162,28 +111,6 @@ public class MonitorControl : CBC {
         if (Input.GetKey(KeyCode.O)) {
           this.transform.Rotate(Vector3.forward, -90 * Time.deltaTime);
         }
-      }
-
-      // press Ctrl + V to record view zone
-      if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.V)) {
-        this.recordingViewZone = true;
-        this.enableViewZone = true;
-        var (newPitch, newYaw) = getCameraAngle();
-        this.pitch.min = newPitch;
-        this.pitch.max = newPitch;
-        this.yaw.min = newYaw;
-        this.yaw.max = newYaw;
-        eb.Invoke("tip", "Start Record View Zone");
-        this.recordingStartTime = Time.time;
-        eb.Invoke("viewZoneMesh.enable");
-      }
-
-      // ctrl + shift + V to disable view zone
-      if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.V)) {
-        if (this.enableViewZone)
-          this.eb.Invoke("tip", "Disable View Zone: " + this.texture.monitorId);
-
-        this.enableViewZone = false;
       }
     });
 

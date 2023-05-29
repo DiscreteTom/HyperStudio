@@ -8,19 +8,11 @@ public class Range {
 }
 
 [System.Serializable]
-public class ViewZone {
-  public Range pitch; // x
-  public Range yaw; // y
-}
-
-[System.Serializable]
 public class MonitorConfig {
   public bool Show;
   public Vector3 Position;
   public Vector3 Rotation;
   public Vector3 Scale;
-  public bool EnableViewZone;
-  public ViewZone ViewZone; // show monitor only when camera's rotation in this range
   public bool Bend;
   public float BendRadius;
 }

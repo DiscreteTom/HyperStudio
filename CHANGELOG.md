@@ -4,6 +4,7 @@
 
 - Change version naming rule.
 - Adopt UniStart framework.
+- Remove view zone.
 
 ## v0.1.1
 
