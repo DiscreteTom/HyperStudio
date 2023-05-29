@@ -2,21 +2,13 @@ using DT.UniStart;
 using UnityEngine;
 
 public class MonitorControl : CBC {
-  bool dragging;
-  float recordingStartTime;
-  uDesktopDuplication.Texture texture;
-  MeshRenderer mr;
-  IEventBus eb;
-  public Range pitch;
-  public Range yaw;
-
   void Start() {
-    this.dragging = false;
-    this.pitch = new Range();
-    this.yaw = new Range();
-    this.texture = this.GetComponent<uDesktopDuplication.Texture>();
-    this.mr = this.GetComponent<MeshRenderer>();
-    this.eb = this.Get<IEventBus>();
+    var dragging = false;
+    var pitch = new Range();
+    var yaw = new Range();
+    var texture = this.GetComponent<uDesktopDuplication.Texture>();
+    var mr = this.GetComponent<MeshRenderer>();
+    var eb = this.Get<IEventBus>();
 
     var getCameraAngle = Fn(() => {
       var yAngle = Mathf.Asin(Camera.main.transform.forward.y / Camera.main.transform.forward.magnitude);
@@ -26,7 +18,7 @@ public class MonitorControl : CBC {
 
     this.onUpdate.AddListener(() => {
       // move the object when the mouse button is held down
-      if (this.dragging) {
+      if (dragging) {
         Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10);
         Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         // keep the distance from the camera the same
@@ -40,7 +32,7 @@ public class MonitorControl : CBC {
 
       // drag
       if (Input.GetMouseButtonUp(0)) {
-        this.dragging = false;
+        dragging = false;
       }
     });
 
@@ -50,7 +42,7 @@ public class MonitorControl : CBC {
 
       // drag
       if (Input.GetMouseButtonDown(0)) {
-        this.dragging = true;
+        dragging = true;
       }
 
       // scale & push & pull
@@ -75,19 +67,19 @@ public class MonitorControl : CBC {
       // press backspace to delete the object
       if (Input.GetKeyDown(KeyCode.Backspace)) {
         Destroy(this.gameObject);
-        this.eb.Invoke("tip", "Remove Screen: " + this.texture.monitorId);
+        eb.Invoke("tip", "Remove Screen: " + texture.monitorId);
       }
 
       // ctrl + '+'/'-' to bend the monitor, ctrl + '0' to toggle bend
       if (Input.GetKey(KeyCode.LeftControl)) {
         if (Input.GetKey(KeyCode.Equals)) {
-          this.texture.radius += 8 * Time.deltaTime;
+          texture.radius += 8 * Time.deltaTime;
         }
         if (Input.GetKey(KeyCode.Minus)) {
-          this.texture.radius -= 8 * Time.deltaTime;
+          texture.radius -= 8 * Time.deltaTime;
         }
         if (Input.GetKeyDown(KeyCode.Alpha0)) {
-          this.texture.bend = !this.texture.bend;
+          texture.bend = !texture.bend;
         }
       }
 
