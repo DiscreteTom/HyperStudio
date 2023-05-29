@@ -12,22 +12,22 @@ public class TipText : CBC {
 
     text.text = "";
 
-    void UpdateText() {
+    var updateText = Fn(() => {
       text.text = "";
       msgs.ForEach(msg => text.text += "\n" + msg);
-    }
+    });
 
     eb.AddListener("tip", (string msg) => {
       msgs.Add(msg);
       timeout.Push(Time.time + Config.instance.TipMessageTimeout);
-      UpdateText();
+      updateText();
     });
 
     this.onUpdate.AddListener(() => {
       if (timeout.Count > 0 && Time.time > timeout.Peek()) {
         timeout.Pop();
         msgs.RemoveAt(0);
-        UpdateText();
+        updateText();
       }
     });
   }

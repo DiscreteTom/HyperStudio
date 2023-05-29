@@ -42,9 +42,9 @@ public class XRCamera : CBC {
         eb.Invoke("tip", "Reset View");
       }
     });
-  }
 
-  void OnApplicationQuit() {
-    RawInput.Stop();
+    this.onApplicationQuit.AddListener(() => {
+      RawInput.Stop();
+    });
   }
 }

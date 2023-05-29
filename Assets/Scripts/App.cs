@@ -33,7 +33,7 @@ public class App : Entry {
           Config.instance.Monitors[i] = new MonitorConfig();
           Config.instance.Monitors[i].Show = false;
         }
-        Array.ForEach(GameObject.Find("MonitorManager").GetComponentsInChildren<uDesktopDuplication.Texture>(), ((texture) => {
+        GameObject.Find("MonitorManager").GetComponentsInChildren<uDesktopDuplication.Texture>().ForEach((texture) => {
           var config = Config.instance.Monitors[texture.monitorId];
           config.Show = true;
           config.Position = texture.transform.position;
@@ -46,7 +46,7 @@ public class App : Entry {
           config.ViewZone = new ViewZone();
           config.ViewZone.pitch = control.pitch;
           config.ViewZone.pitch = control.yaw;
-        }));
+        });
 
         Config.Save();
         eb.Invoke("tip", "Saved");
@@ -65,11 +65,7 @@ public class App : Entry {
 
       // press esc to exit
       if (Input.GetKeyDown(KeyCode.Escape)) {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-      UnityEngine.Application.Quit();
-#endif
+        this.ExitGame();
       }
 
       // press enter to toggle full screen

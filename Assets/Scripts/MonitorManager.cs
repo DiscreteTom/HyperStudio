@@ -1,12 +1,15 @@
+using DT.UniStart;
 using uDesktopDuplication;
 using UnityEngine;
 
-public class MonitorManager : MonoBehaviour {
+public class MonitorManager : CBC {
   [SerializeField] GameObject monitorPrefab;
 
   void Start() {
+    var getCenter = Fn((Monitor monitor) => new Vector3(monitor.left + (monitor.right - monitor.left) / 2, -(monitor.top + (monitor.bottom - monitor.top) / 2), 0));
+
     // center of primary monitor
-    var primaryCenter = this.GetCenter(Manager.primary);
+    var primaryCenter = getCenter(Manager.primary);
 
     for (var i = 0; i < Manager.monitors.Count; i++) {
       // skip hidden monitors
@@ -31,14 +34,10 @@ public class MonitorManager : MonoBehaviour {
       } else {
         obj.transform.localScale = new Vector3(monitor.width, monitor.height, 1000) / 1000;
         // set screen position just like in the system settings
-        obj.transform.position = (this.GetCenter(monitor) - primaryCenter) / 100;
+        obj.transform.position = (getCenter(monitor) - primaryCenter) / 100;
         // look at camera
         obj.transform.LookAt(2 * obj.transform.position - Camera.main.transform.position);
       }
     }
-  }
-
-  Vector3 GetCenter(Monitor monitor) {
-    return new Vector3(monitor.left + (monitor.right - monitor.left) / 2, -(monitor.top + (monitor.bottom - monitor.top) / 2), 0);
   }
 }
