@@ -8,7 +8,7 @@ public class TipText : CBC {
     var msgs = new List<string>();
     var timeout = new Stack<float>();
     var text = this.GetComponent<TMP_Text>();
-    var eb = this.Get<EventBus>();
+    var eb = this.Get<IEventBus>();
 
     text.text = "";
 

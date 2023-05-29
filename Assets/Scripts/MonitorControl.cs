@@ -6,7 +6,7 @@ public class MonitorControl : CBC {
   float recordingStartTime;
   uDesktopDuplication.Texture texture;
   MeshRenderer mr;
-  EventBus eb;
+  IEventBus eb;
   public Range pitch;
   public Range yaw;
 
@@ -16,7 +16,7 @@ public class MonitorControl : CBC {
     this.yaw = new Range();
     this.texture = this.GetComponent<uDesktopDuplication.Texture>();
     this.mr = this.GetComponent<MeshRenderer>();
-    this.eb = this.Get<EventBus>();
+    this.eb = this.Get<IEventBus>();
 
     var getCameraAngle = Fn(() => {
       var yAngle = Mathf.Asin(Camera.main.transform.forward.y / Camera.main.transform.forward.magnitude);

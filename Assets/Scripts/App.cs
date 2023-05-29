@@ -18,9 +18,9 @@ public class App : Entry {
 
     // inject context
 #if UNITY_EDITOR
-    var eb = this.Add<EventBus>(new DebugEventBus());
+    var eb = this.Add<IEventBus>(new DebugEventBus());
 #else
-    var eb = this.Add<EventBus>();
+    var eb = this.Add<IEventBus>(new EventBus());
 #endif
 
     this.onUpdate.AddListener(() => {

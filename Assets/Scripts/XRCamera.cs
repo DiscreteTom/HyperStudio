@@ -8,7 +8,7 @@ public class XRCamera : CBC {
     XRSDK.Reset();
     XRSDK.SetPanelLuminance(Config.instance.PanelLuminance);
 
-    var eb = this.Get<EventBus>();
+    var eb = this.Get<IEventBus>();
     RawInput.WorkInBackground = true;
     RawInput.Start();
     if (Config.instance.ResetViewHotKey.Enabled) {
