@@ -13,6 +13,7 @@ public class MonitorManager : CBC {
 
     for (var i = 0; i < Manager.monitors.Count; i++) {
       // skip hidden monitors
+      // TODO: identify monitors by serial number or something, don't rely on the order
       if (Config.instance.Monitors.Length > i) {
         var config = Config.instance.Monitors[i];
         if (!config.Show) continue;
