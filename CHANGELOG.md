@@ -5,6 +5,7 @@
 - Change version naming rule.
 - Adopt UniStart framework.
 - Remove view zone.
+- Remove global hot key to reset view.
 
 ## v0.1.1
 

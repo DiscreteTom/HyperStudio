@@ -78,4 +78,3 @@ HyperStudio.exe -monitor N
 Thanks for these cool libs:
 
 - [uDesktopDuplication](https://github.com/hecomi/uDesktopDuplication)
-- [UnityRawInput](https://github.com/Elringus/UnityRawInput)
