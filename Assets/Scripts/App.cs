@@ -1,3 +1,6 @@
+#if !UNITY_EDITOR
+using System.IO;
+#endif
 using DT.UniStart;
 using HyperDesktopDuplication;
 using UnityEngine;
@@ -5,6 +8,17 @@ using UnityEngine.SceneManagement;
 
 public class App : Entry {
   async void Awake() {
+    // write log files
+#if !UNITY_EDITOR
+    var logFilename = "log.txt";
+    void fileLogger(string str, string stack, LogType type) {
+      var writer = new StreamWriter(logFilename, true);
+      writer.WriteLine($"[{System.DateTime.Now}] [{type}]: {str}\n{stack}");
+      writer.Close();
+    };
+    Application.logMessageReceived += fileLogger;
+#endif
+
     // show on all desktops
 #if !UNITY_EDITOR
     if (Config.instance.ShowOnAllDesktops) {
