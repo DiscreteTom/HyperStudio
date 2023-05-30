@@ -3,14 +3,17 @@ static mut POS_DATA: [u8; 13] = [0; 13];
 /// enabled: bool, x: f32, y: f32, z: f32, w: f32
 static mut ROT_DATA: [u8; 17] = [0; 17];
 
-pub fn init() {}
+#[no_mangle]
+pub extern "C" fn TP_Init() {}
 
-pub fn shutdown() {}
+#[no_mangle]
+pub extern "C" fn TP_Shutdown() {}
 
-pub unsafe fn get_position() -> *mut [u8; 13] {
+#[no_mangle]
+pub unsafe extern "C" fn TP_GetPosition() -> *mut [u8; 13] {
   &mut POS_DATA // position is disabled
 }
-
-pub unsafe fn get_rotation() -> *mut [u8; 17] {
+#[no_mangle]
+pub unsafe extern "C" fn TP_GetRotation() -> *mut [u8; 17] {
   &mut ROT_DATA // rotation is disabled
 }
