@@ -1,3 +1,5 @@
+#![allow(non_snake_case)]
+
 /// enabled: bool, x: f32, y: f32, z: f32
 static mut POS_DATA: [u8; 13] = [0; 13];
 /// enabled: bool, x: f32, y: f32, z: f32, w: f32
