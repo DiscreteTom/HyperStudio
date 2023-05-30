@@ -13,7 +13,8 @@ public class App : Entry {
     var logFilename = "log.txt";
     void fileLogger(string str, string stack, LogType type) {
       var writer = new StreamWriter(logFilename, true);
-      writer.WriteLine($"[{System.DateTime.Now}] [{type}]: {str}\n{stack}");
+      var stackStr = stack.Length > 0 ? "\n" + stack : "";
+      writer.WriteLine($"[{System.DateTime.Now}] [{type}]: {str}{stackStr}");
       writer.Close();
     };
     Application.logMessageReceived += fileLogger;
