@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class App : Entry {
-  async void Awake() {
+  void Awake() {
     // write log files
 #if !UNITY_EDITOR
     var logFilename = "log.txt";
@@ -37,8 +37,11 @@ public class App : Entry {
     var eb = this.Add<IEventBus>(new EventBus());
 #endif
 
-    await manager.Refresh();
-    eb.Invoke("hdd.manager.initialized");
+    // wait for HDD_Manager.Awake(), refresh manager at next update
+    this.onNextUpdate.AddListener(async () => {
+      await manager.Refresh();
+      eb.Invoke("hdd.manager.initialized");
+    });
 
     this.onUpdate.AddListener(() => {
       // Ctrl + S to save config
