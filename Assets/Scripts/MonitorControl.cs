@@ -34,7 +34,7 @@ public class MonitorControl : CBC {
       }
     });
 
-    this.onMouseOver.AddListener(async () => {
+    this.onMouseOver.AddListener(() => {
       // blink
       this.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.gray, Mathf.PingPong(Time.time * 2, 1));
 
@@ -66,7 +66,7 @@ public class MonitorControl : CBC {
       if (Input.GetKeyDown(KeyCode.Backspace)) {
         var monitor = this.GetComponent<HDD_Monitor>();
         var id = monitor.id;
-        await monitor.DestroyMonitor();
+        monitor.DestroyMonitor();
         Destroy(this.gameObject);
         eb.Invoke("tip", "Remove Screen: " + id);
       }
