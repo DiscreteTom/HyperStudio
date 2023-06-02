@@ -46,6 +46,10 @@ namespace Shremdup {
     }
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Shremdup.RestartRequest> __Marshaller_shremdup_RestartRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Shremdup.RestartRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::Shremdup.RestartReply> __Marshaller_shremdup_RestartReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Shremdup.RestartReply.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Shremdup.ListDisplaysRequest> __Marshaller_shremdup_ListDisplaysRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Shremdup.ListDisplaysRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Shremdup.ListDisplaysReply> __Marshaller_shremdup_ListDisplaysReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Shremdup.ListDisplaysReply.Parser));
@@ -65,6 +69,14 @@ namespace Shremdup {
     static readonly grpc::Marshaller<global::Shremdup.TakeCaptureRequest> __Marshaller_shremdup_TakeCaptureRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Shremdup.TakeCaptureRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::Shremdup.TakeCaptureReply> __Marshaller_shremdup_TakeCaptureReply = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::Shremdup.TakeCaptureReply.Parser));
+
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::Shremdup.RestartRequest, global::Shremdup.RestartReply> __Method_Restart = new grpc::Method<global::Shremdup.RestartRequest, global::Shremdup.RestartReply>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Restart",
+        __Marshaller_shremdup_RestartRequest,
+        __Marshaller_shremdup_RestartReply);
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::Shremdup.ListDisplaysRequest, global::Shremdup.ListDisplaysReply> __Method_ListDisplays = new grpc::Method<global::Shremdup.ListDisplaysRequest, global::Shremdup.ListDisplaysReply>(
@@ -116,6 +128,12 @@ namespace Shremdup {
     [grpc::BindServiceMethod(typeof(Shremdup), "BindService")]
     public abstract partial class ShremdupBase
     {
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::Shremdup.RestartReply> Restart(global::Shremdup.RestartRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
       /// <summary>
       /// get a list of all display infos
       /// </summary>
@@ -205,6 +223,26 @@ namespace Shremdup {
       {
       }
 
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Shremdup.RestartReply Restart(global::Shremdup.RestartRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Restart(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::Shremdup.RestartReply Restart(global::Shremdup.RestartRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Restart, null, options, request);
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Shremdup.RestartReply> RestartAsync(global::Shremdup.RestartRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return RestartAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual grpc::AsyncUnaryCall<global::Shremdup.RestartReply> RestartAsync(global::Shremdup.RestartRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Restart, null, options, request);
+      }
       /// <summary>
       /// get a list of all display infos
       /// </summary>
@@ -459,6 +497,7 @@ namespace Shremdup {
     public static grpc::ServerServiceDefinition BindService(ShremdupBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
+          .AddMethod(__Method_Restart, serviceImpl.Restart)
           .AddMethod(__Method_ListDisplays, serviceImpl.ListDisplays)
           .AddMethod(__Method_GetDisplay, serviceImpl.GetDisplay)
           .AddMethod(__Method_CreateCapture, serviceImpl.CreateCapture)
@@ -473,6 +512,7 @@ namespace Shremdup {
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     public static void BindService(grpc::ServiceBinderBase serviceBinder, ShremdupBase serviceImpl)
     {
+      serviceBinder.AddMethod(__Method_Restart, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shremdup.RestartRequest, global::Shremdup.RestartReply>(serviceImpl.Restart));
       serviceBinder.AddMethod(__Method_ListDisplays, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shremdup.ListDisplaysRequest, global::Shremdup.ListDisplaysReply>(serviceImpl.ListDisplays));
       serviceBinder.AddMethod(__Method_GetDisplay, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shremdup.GetDisplayRequest, global::Shremdup.GetDisplayReply>(serviceImpl.GetDisplay));
       serviceBinder.AddMethod(__Method_CreateCapture, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shremdup.CreateCaptureRequest, global::Shremdup.CreateCaptureReply>(serviceImpl.CreateCapture));
