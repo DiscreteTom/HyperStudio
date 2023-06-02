@@ -18,6 +18,7 @@ public class App : Entry {
       writer.Close();
     };
     Application.logMessageReceived += fileLogger;
+    this.onDestroy.AddListener(() => Application.logMessageReceived -= fileLogger);
 #endif
 
     // show on all desktops
