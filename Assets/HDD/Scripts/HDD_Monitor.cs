@@ -96,6 +96,10 @@ namespace HyperDesktopDuplication {
       try {
         var res = await client.TakeCaptureAsync(new Shremdup.TakeCaptureRequest { Id = (uint)this.id });
 
+        // don't access memory if this is destroyed
+        // to avoid crash
+        if (this.destroyed) return;
+
         if (res.DesktopUpdated) {
           // load from shared memory
           texture.LoadRawTextureData(address, bufSize);
@@ -234,7 +238,7 @@ namespace HyperDesktopDuplication {
       if (this.state == State.TakeCaptureDone && this.desktopRenderer.visible) this.TakeCapture();
     }
 
-    public async Task DestroyMonitor() {
+    public void DestroyMonitor() {
       if (this.destroyed) return;
       this.destroyed = true;
 
@@ -253,16 +257,16 @@ namespace HyperDesktopDuplication {
 
       // stop server capture
       try {
-        await client.DeleteCaptureAsync(new Shremdup.DeleteCaptureRequest { Id = (uint)this.id });
+        client.DeleteCapture(new Shremdup.DeleteCaptureRequest { Id = (uint)this.id });
         Logger.Log($"display {this.id}: capture deleted");
       } catch (Exception e) {
         Logger.Log($"display {this.id}: delete capture failed: {e}");
       }
     }
 
-    async void OnDestroy() {
+    void OnDestroy() {
       if (!this.destroyed)
-        await this.DestroyMonitor();
+        this.DestroyMonitor();
     }
   }
 }

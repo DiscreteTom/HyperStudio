@@ -21,7 +21,7 @@ namespace HyperDesktopDuplication {
     }
 
     public async Task Refresh() {
-      await this.DestroyAllMonitors();
+      this.DestroyAllMonitors();
       await this.client.RestartAsync(new Shremdup.RestartRequest { });
       // list displays
       var reply = await this.client.ListDisplaysAsync(new Shremdup.ListDisplaysRequest { });
@@ -46,25 +46,25 @@ namespace HyperDesktopDuplication {
       return monitor;
     }
 
-    async void OnDestroy() {
+    void OnDestroy() {
       // first, destroy all monitors
-      await this.DestroyAllMonitors();
+      this.DestroyAllMonitors();
 
       // then close the channel
       try {
-        await channel.ShutdownAsync();
+        channel.ShutdownAsync().Wait();
         Logger.Log("channel shutdown");
       } catch {
         Logger.Log("channel not shutdown");
       }
     }
 
-    async Task DestroyAllMonitors() {
+    void DestroyAllMonitors() {
       var monitors = GetComponentsInChildren<HDD_Monitor>();
       for (var i = 0; i < monitors.Length; ++i) {
         var monitor = monitors[i];
         try {
-          await monitor.DestroyMonitor();
+          monitor.DestroyMonitor();
         } catch (System.Exception e) {
           Logger.Log($"error destroying monitor {i}: {e}");
         }
