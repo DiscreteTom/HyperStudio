@@ -8,10 +8,10 @@ using UnityEngine.SceneManagement;
 
 public class App : Entry {
   void Awake() {
-    // write log files
 #if !UNITY_EDITOR
+    // write log files
     var logFilename = "log.txt";
-    void fileLogger(string str, string stack, LogType type) {
+    Application.LogCallback fileLogger = (string str, string stack, LogType type) => {
       var writer = new StreamWriter(logFilename, true);
       var stackStr = stack.Length > 0 ? "\n" + stack : "";
       writer.WriteLine($"[{System.DateTime.Now}] [{type}]: {str}{stackStr}");
