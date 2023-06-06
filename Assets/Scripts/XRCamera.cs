@@ -8,9 +8,7 @@ public class XRCamera : CBC {
 
     // manage transform provider lifecycle
     TransformProvider.TP_Init();
-    this.onDestroy.AddListener(() => {
-      TransformProvider.TP_Shutdown();
-    });
+    this.onDestroy.AddListener(TransformProvider.TP_Shutdown);
 
     this.onUpdate.AddListener(() => {
       // update the camera position & rotation from transform provider
