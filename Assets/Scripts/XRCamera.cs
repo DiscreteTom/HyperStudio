@@ -28,6 +28,7 @@ public class XRCamera : CBC {
         y = *(float*)(p_addr + 5);
         z = *(float*)(p_addr + 9);
       }
+
       if (r_enabled != 0) {
         this.transform.rotation = new Quaternion(rx, ry, rz, rw);
       }
@@ -37,7 +38,6 @@ public class XRCamera : CBC {
 
       // ctrl + R to reset
       // if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R)) {
-      //   // XRSDK.Reset();
       //   eb.Invoke("tip", "Reset View");
       // }
     });
