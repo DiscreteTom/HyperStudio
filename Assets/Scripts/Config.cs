@@ -2,12 +2,6 @@ using System.IO;
 using UnityEngine;
 
 [System.Serializable]
-public class Range {
-  public float min;
-  public float max;
-}
-
-[System.Serializable]
 public class MonitorConfig {
   public bool Show;
   public Vector3 Position;
