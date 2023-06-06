@@ -7,6 +7,7 @@ public class MonitorControl : CBC {
     var dragging = false;
     var mr = this.GetComponent<MeshRenderer>();
     var eb = this.Get<IEventBus>();
+    var desktopRenderer = this.transform.Find("DesktopRenderer").gameObject.AddComponent<ComposableBehaviour>();
 
     var getCameraAngle = Fn(() => {
       var yAngle = Mathf.Asin(Camera.main.transform.forward.y / Camera.main.transform.forward.magnitude);
@@ -34,9 +35,9 @@ public class MonitorControl : CBC {
       }
     });
 
-    this.onMouseOver.AddListener(() => {
+    desktopRenderer.onMouseOver.AddListener(() => {
       // blink
-      this.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.gray, Mathf.PingPong(Time.time * 2, 1));
+      desktopRenderer.GetComponent<Renderer>().material.color = Color.Lerp(Color.white, Color.gray, Mathf.PingPong(Time.time * 2, 1));
 
       // drag
       if (Input.GetMouseButtonDown(0)) {
@@ -107,9 +108,9 @@ public class MonitorControl : CBC {
       }
     });
 
-    this.onMouseExit.AddListener(() => {
+    desktopRenderer.onMouseExit.AddListener(() => {
       // cancel blink
-      this.GetComponent<Renderer>().material.color = Color.white;
+      desktopRenderer.GetComponent<Renderer>().material.color = Color.white;
     });
   }
 }
