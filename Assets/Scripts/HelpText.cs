@@ -16,7 +16,6 @@ Hold `Ctrl + J/K/L/U/I/O` to rotate screen.
 Press `Ctrl + R` to reset viewpoint direction.
 Press `Ctrl + Shift + R` to reload the scene.
 Press `Ctrl + S` to save screen's location, rotation and scale to config.
-Hold `Ctrl + A` to show all screens(not include removed).
 Press `Ctrl + F` to toggle `AutoLookAtCamera`.
 Press `ESC` to exit.";
 
