@@ -7,7 +7,7 @@
 - Apply HyperDesktopDuplication.
 - Remove view zone.
 - Remove global hot key to reset view.
-- Remove curved monitor support. Maybe implement it in the future in HyperDesktopDuplication.
+- Remove bended monitor support. Maybe implement it in the future in HyperDesktopDuplication.
 
 ## v0.1.1
 
