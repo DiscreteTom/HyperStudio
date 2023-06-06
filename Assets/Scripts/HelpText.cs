@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using DT.UniStart;
 using TMPro;
 using UnityEngine;
@@ -19,9 +18,9 @@ Press `Ctrl + S` to save screen's location, rotation and scale to config.
 Press `Ctrl + F` to toggle `AutoLookAtCamera`.
 Press `ESC` to exit.";
 
+    // hold tab to show help text
     this.onUpdate.AddListener(() => {
-      if (Input.GetKey(KeyCode.Tab)) text.enabled = true;
-      else text.enabled = false;
+      text.enabled = Input.GetKey(KeyCode.Tab);
     });
   }
 }
