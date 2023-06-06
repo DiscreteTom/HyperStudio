@@ -7,8 +7,8 @@ public class MonitorConfig {
   public Vector3 Position;
   public Vector3 Rotation;
   public Vector3 Scale;
-  public bool Bend;
-  public float BendRadius;
+  // public bool Bend;
+  // public float BendRadius;
 }
 
 [System.Serializable]
