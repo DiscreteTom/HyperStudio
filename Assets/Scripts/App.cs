@@ -41,6 +41,7 @@ public class App : Entry {
 
     // wait for other controllers to register event handlers
     this.onNextUpdate.AddListener(async () => {
+      manager.server = "localhost:" + Config.instance.Port;
       await manager.Refresh();
       eb.Invoke("hdd.manager.initialized");
     });

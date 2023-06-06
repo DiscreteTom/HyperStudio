@@ -16,6 +16,7 @@ public class Config {
   public bool ShowOnAllDesktops;
   public bool AutoLookAtCamera;
   public float TipMessageTimeout;
+  public int Port;
   public MonitorConfig[] Monitors;
 
   public static Config Load() {
@@ -31,6 +32,7 @@ public class Config {
       config.ShowOnAllDesktops = true;
       config.AutoLookAtCamera = true;
       config.TipMessageTimeout = 5;
+      config.Port = 3030;
       config.Monitors = new MonitorConfig[0];
       changed = true;
     }

@@ -2,5 +2,6 @@
   "ShowOnAllDesktops": true,
   "AutoLookAtCamera": true,
   "TipMessageTimeout": 5.0,
+  "Port": 3030,
   "Monitors": []
 }
