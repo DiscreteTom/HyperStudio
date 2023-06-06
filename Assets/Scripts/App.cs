@@ -39,7 +39,7 @@ public class App : Entry {
     var eb = this.Add<IEventBus>(new EventBus());
 #endif
 
-    // wait for HDD_Manager.Awake(), refresh manager at next update
+    // wait for other controllers to register event handlers
     this.onNextUpdate.AddListener(async () => {
       await manager.Refresh();
       eb.Invoke("hdd.manager.initialized");
