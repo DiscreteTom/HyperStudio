@@ -3,11 +3,13 @@
 ## v2.0.0
 
 - Change version naming rule.
+- Apply HyperDesktopDuplication. Now HyperStudio can run with discrete GPU.
+- Define `TransformProvider` so any AR glasses can use HyperStudio by implementing a `TransformProvider` DLL.
 - Apply UniStart framework.
-- Apply HyperDesktopDuplication.
 - Remove view zone.
 - Remove global hot key to reset view.
 - Remove bended monitor support. Maybe implement it in the future in HyperDesktopDuplication.
+- Remove `Ctrl+S` to reset view.
 
 ## v0.1.1
 
