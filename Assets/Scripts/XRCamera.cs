@@ -10,6 +10,10 @@ public class XRCamera : CBC {
     TransformProvider.TP_Init();
     this.onDestroy.AddListener(TransformProvider.TP_Shutdown);
 
+    var initPosition = this.transform.position;
+    var positionOffset = Vector3.zero;
+    var rotationOffset = Quaternion.identity;
+
     this.onUpdate.AddListener(() => {
       // update the camera position & rotation from transform provider
       float rx, ry, rz, rw; // range: [-1, 1]
@@ -30,16 +34,18 @@ public class XRCamera : CBC {
       }
 
       if (r_enabled != 0) {
-        this.transform.rotation = new Quaternion(rx, ry, rz, rw);
+        this.transform.rotation = Quaternion.Inverse(rotationOffset) * (new Quaternion(rx, ry, rz, rw));
       }
       if (p_enabled != 0) {
-        this.transform.position = new Vector3(x, y, z);
+        this.transform.position = new Vector3(x, y, z) - positionOffset + initPosition;
       }
 
       // ctrl + R to reset
-      // if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R)) {
-      //   eb.Invoke("tip", "Reset View");
-      // }
+      if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.R)) {
+        positionOffset = this.transform.position - initPosition;
+        rotationOffset = new Quaternion(rx, ry, rz, rw);
+        eb.Invoke("tip", "Reset View");
+      }
     });
   }
 }

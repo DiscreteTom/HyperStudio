@@ -9,7 +9,6 @@
 - Remove view zone.
 - Remove global hot key to reset view.
 - Remove bended monitor support. Maybe implement it in the future in HyperDesktopDuplication.
-- Remove `Ctrl+S` to reset view.
 
 ## v0.1.1
 
