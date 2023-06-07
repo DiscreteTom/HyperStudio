@@ -3,6 +3,7 @@
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/DiscreteTom/HyperStudio?style=flat-square)
 ![Platform support](https://img.shields.io/badge/platform-windows-blue?style=flat-square)
 ![Built with Unity3D](https://img.shields.io/badge/Built%20with-Unity3D-lightgrey?style=flat-square)
+![license](https://img.shields.io/github/license/DiscreteTom/HyperStudio?style=flat-square)
 
 > **Note**: This is only available on Windows.
 
