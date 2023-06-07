@@ -6,7 +6,7 @@
 
 > **Note**: This is only available on Windows.
 
-Cast your PC screens to Leiniao AR glasses.
+Cast your PC screens to AR glasses.
 
 ## [Download](https://github.com/DiscreteTom/HyperStudio/releases)
 
@@ -14,67 +14,41 @@ Cast your PC screens to Leiniao AR glasses.
 
 - Auto apply your monitor layout from your system settings.
 - Optionally show on all virtual desktops.
-- You can set a view zone for each screen, so the screen will only be visible when your head is in a specific angle range.
-- Configurable global hot key to reset view. By default it's `Ctrl + Win + R`.
-
-## Launch the App
-
-### The Simplest Way
-
-Just double click `HyperStudio.exe` to run this app. You can press `Enter` to toggle full screen mode.
-
-### Set Resolution
-
-```bash
-# https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html
-HyperStudio.exe -screen-width 2400 -screen-height 1600
-```
-
-> **Note**: The desired resolution can exceed the AR monitor's resolution(1920x1080), and you will get a better display effect.
-
-### Run in a Specific Monitor
-
-```bash
-# https://docs.unity3d.com/Manual/PlayerCommandLineArguments.html
-HyperStudio.exe -monitor N
-```
-
-> **Note**: N starts from 1 instead of 0.
+- Move or scale your screen.
+- You can adapt to any AR glasses by implementing a `TransformProvider` DLL.
 
 ## How to Use
 
-- Hold `Tab` to show this help.
-- Press `Enter` to toggle full screen.
-- Drag screen using mouse to move the screen.
-- Scroll to scale the screen.
-- Scroll while pressing `Ctrl` to push away / pull close a screen.
-- Press `Backspace` to remove a screen.
-- Hold `Ctrl + '+'/'-'` to bend the screen.
-- Press `Ctrl + 0` to toggle bend.
-- Hold `Ctrl + J/K/L/U/I/O` to rotate screen.
-- Press `Ctrl + R` to reset viewpoint direction.
-- Press `Ctrl + Shift + R` to reload the scene.
-- Press `Ctrl + S` to save screen's location, rotation and scale to config.
-- Hold `Ctrl + V` to record view zone for the screen.
-- Press `Ctrl + Shift + V` to disable view zone for the screen.
-- Hold `Ctrl + A` to show all screens(not include removed).
-- Press `Ctrl + F` to toggle `AutoLookAtCamera`.
-- Press `ESC` to exit.
+First, select a `TransformProvider`, and replace the `HyperStudio_Data/Plugins/x86_64/TransformProvider.dll`.
+
+> Known `TransformProvider`s:
+>
+> - [hstp-rayneo-air](https://github.com/DiscreteTom/hstp-rayneo-air)
+
+Then, start a [shremdup](https://github.com/DiscreteTom/shremdup) (v0.1.7+) server **_with administrator privilege_** (to use shared memory across processes). The gRPC port is 3030, so you should run `shremdup.exe 3030`.
+
+> **Note**: You can customize the port in HyperStudio's `config.json`.
+
+Finally, start `HyperStudio.exe` **_with administrator privilege_** to run this app. You can press `Enter` to toggle full screen mode.
+
+> **Note**: Hold `Tab` to show the help info.
 
 ## FAQ
 
-- Sorry this display is unsupported?
-  - Go to System Setting > Display > Graphics, find/add this app, and set options to Power Saving to use the on-chip GPU.
-  - Or, you can directly disable your discrete GPU.
-  - https://github.com/hecomi/uDesktopDuplication/issues/30
 - Virtual monitor?
   - https://www.amyuni.com/forum/viewtopic.php?t=3030
   - https://github.com/pavlobu/deskreen/discussions/86
 
+## For Developers
+
+### Write Your Own Transform Provider
+
+You can refer to [hstp-rayneo-air](https://github.com/DiscreteTom/hstp-rayneo-air).
+
+### Related Projects
+
+- [HyperDesktopDuplication](https://github.com/DiscreteTom/HyperDesktopDuplication)
+- [shremdup](https://github.com/DiscreteTom/shremdup)
+- [rusty-duplication](https://github.com/DiscreteTom/rusty-duplication)
+
 ## [CHANGELOG](https://github.com/DiscreteTom/HyperStudio/blob/main/CHANGELOG.md)
-
-## Credit
-
-Thanks for these cool libs:
-
-- [uDesktopDuplication](https://github.com/hecomi/uDesktopDuplication)
