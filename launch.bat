@@ -31,4 +31,5 @@ if '%errorlevel%' NEQ '0' (
 :--------------------------------------
 
 start shremdup.exe 3030
-start HyperStudio.exe
+:: run with doubled resolution for a better experience
+start HyperStudio.exe -screen-width 3840 -screen-height 2160
