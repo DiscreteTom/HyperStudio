@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.0.1
+
+- Add `launch.bat` for quick launch.
+
 ## v2.0.0
 
 - Change version naming rule.
