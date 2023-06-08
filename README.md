@@ -20,6 +20,14 @@ Cast your PC screens to AR glasses.
 
 ## How to Use
 
+### Quick Start
+
+Run `launch.bat`. It will ask you for administrator privilege.
+
+> **Note**: Press `Enter` to toggle full screen mode. Hold `Tab` to show the help message.
+
+### Advanced
+
 First, select a `TransformProvider`, and replace the `HyperStudio_Data/Plugins/x86_64/TransformProvider.dll`.
 
 > Known `TransformProvider`s:
@@ -30,9 +38,7 @@ Then, start a [shremdup](https://github.com/DiscreteTom/shremdup) (v0.1.7+) serv
 
 > **Note**: You can customize the port in HyperStudio's `config.json`.
 
-Finally, start `HyperStudio.exe` **_with administrator privilege_** to run this app. You can press `Enter` to toggle full screen mode.
-
-> **Note**: Hold `Tab` to show the help info.
+Finally, start `HyperStudio.exe` **_with administrator privilege_** to run this app.
 
 ## FAQ
 
