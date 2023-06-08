@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v2.0.1
+## v2.1.0
 
 - Add `launch.bat` for quick launch.
 
