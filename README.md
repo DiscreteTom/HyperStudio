@@ -22,7 +22,9 @@ Cast your PC screens to AR glasses.
 
 ### Quick Start
 
-Run `launch.bat`. It will ask you for administrator privilege.
+First, connect your AR glasses to your PC, and make sure the project mode is extended.
+
+Then, download the latest release from [here](https://github.com/DiscreteTom/HyperStudio/releases). Run `launch.bat`. It will ask you for administrator privilege.
 
 > **Note**: Press `Enter` to toggle full screen mode. Hold `Tab` to show the help message.
 
